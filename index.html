@@ -282,161 +282,143 @@
 
 <div class="legend">
   <div class="legend-item active" onclick="filter('all')"><span class="legend-dot" style="background:#7c6aff"></span><span id="leg-all">ALL</span></div>
-  <div class="legend-item" onclick="filter('fe')"><span class="legend-dot" style="background:var(--fe)"></span>FRONTEND</div>
-  <div class="legend-item" onclick="filter('be')"><span class="legend-dot" style="background:var(--be)"></span>BACKEND</div>
-  <div class="legend-item" onclick="filter('fullstack')"><span class="legend-dot" style="background:var(--fullstack)"></span>FULLSTACK</div>
-  <div class="legend-item" onclick="filter('mobile')"><span class="legend-dot" style="background:var(--mobile)"></span>MOBILE</div>
+  <div class="legend-item" onclick="filter('fe')"><span class="legend-dot" style="background:var(--fe)"></span><span id="leg-fe">FRONTEND</span></div>
+  <div class="legend-item" onclick="filter('be')"><span class="legend-dot" style="background:var(--be)"></span><span id="leg-be">BACKEND</span></div>
+  <div class="legend-item" onclick="filter('fullstack')"><span class="legend-dot" style="background:var(--fullstack)"></span><span id="leg-fullstack">FULLSTACK</span></div>
+  <div class="legend-item" onclick="filter('mobile')"><span class="legend-dot" style="background:var(--mobile)"></span><span id="leg-mobile">MOBILE</span></div>
   <div class="legend-item" onclick="filter('data')"><span class="legend-dot" style="background:var(--data)"></span><span id="leg-data">DATA & AI</span></div>
-  <div class="legend-item" onclick="filter('infra')"><span class="legend-dot" style="background:var(--infra)"></span>INFRA & DEVOPS</div>
+  <div class="legend-item" onclick="filter('infra')"><span class="legend-dot" style="background:var(--infra)"></span><span id="leg-infra">INFRA & DEVOPS</span></div>
 </div>
 
 <div class="grid" id="grid"></div>
 
 <script>
 const stacks = [
-  {
-    cat: 'fe', icon: '⚛️', name: 'React', sub: 'Meta · JavaScript/TypeScript',
-    desc: 'Biblioteca para construção de interfaces. Padrão da indústria para SPAs e componentes reutilizáveis. Base para Next.js e React Native.',
-    tags: ['SPA', 'Componentes', 'Virtual DOM', 'Hooks'],
-    use: 'E-commerces, dashboards, apps SaaS, portais',
-    pros: ['Ecossistema gigante', 'Mercado de trabalho forte', 'Flexível e componível'],
-    cons: ['Não é um framework completo', 'Curva de aprendizado de padrões', 'Requer decisões de arquitetura']
+  { cat:'fe', icon:'⚛️', name:'React', sub:'Meta · JavaScript/TypeScript',
+    desc:{en:'UI library for building interfaces. Industry standard for SPAs and reusable components. Foundation for Next.js and React Native.',pt:'Biblioteca para construção de interfaces. Padrão da indústria para SPAs e componentes reutilizáveis. Base para Next.js e React Native.'},
+    tags:['SPA','Components','Virtual DOM','Hooks'],
+    use:{en:'E-commerce, dashboards, SaaS apps, portals',pt:'E-commerces, dashboards, apps SaaS, portais'},
+    pros:{en:['Huge ecosystem','Strong job market','Flexible and composable'],pt:['Ecossistema gigante','Mercado de trabalho forte','Flexível e componível']},
+    cons:{en:['Not a complete framework','Pattern learning curve','Requires architecture decisions'],pt:['Não é um framework completo','Curva de aprendizado de padrões','Requer decisões de arquitetura']}
   },
-  {
-    cat: 'fullstack', icon: '▲', name: 'Next.js', sub: 'Vercel · React Framework',
-    desc: 'Framework fullstack sobre React. Suporta SSR, SSG e API Routes no mesmo projeto. Deploy quase automático na Vercel.',
-    tags: ['SSR', 'SSG', 'API Routes', 'SEO', 'Fullstack'],
-    use: 'Produtos SaaS, e-commerces, sites de conteúdo, portais',
-    pros: ['Melhor SEO que React puro', 'Fullstack em um projeto', 'Ecossistema maduro'],
-    cons: ['Lock-in com Vercel', 'Complexidade crescente', 'Builds podem ser lentos']
+  { cat:'fullstack', icon:'▲', name:'Next.js', sub:'Vercel · React Framework',
+    desc:{en:'Fullstack framework on top of React. Supports SSR, SSG and API Routes in one project. Nearly automatic deployment on Vercel.',pt:'Framework fullstack sobre React. Suporta SSR, SSG e API Routes no mesmo projeto. Deploy quase automático na Vercel.'},
+    tags:['SSR','SSG','API Routes','SEO','Fullstack'],
+    use:{en:'SaaS products, e-commerce, content sites, portals',pt:'Produtos SaaS, e-commerces, sites de conteúdo, portais'},
+    pros:{en:['Better SEO than plain React','Fullstack in one project','Mature ecosystem'],pt:['Melhor SEO que React puro','Fullstack em um projeto','Ecossistema maduro']},
+    cons:{en:['Vercel lock-in','Growing complexity','Builds can be slow'],pt:['Lock-in com Vercel','Complexidade crescente','Builds podem ser lentos']}
   },
-  {
-    cat: 'fullstack', icon: '💚', name: 'Vue + Nuxt', sub: 'Evan You · Progressive Framework',
-    desc: 'Vue é um framework progressivo, mais acessível que React. Nuxt é seu equivalente ao Next.js com SSR, SSG e API Routes no mesmo projeto.',
-    tags: ['Progressivo', 'SSR', 'SSG', 'API Routes', 'Fullstack'],
-    use: 'Aplicações médias, times menores, projetos corporativos',
-    pros: ['Curva de aprendizado gentil', 'Documentação excelente', 'Elegante e organizado'],
-    cons: ['Ecossistema menor que React', 'Menos vagas no mercado', 'Comunidade menor']
+  { cat:'fullstack', icon:'💚', name:'Vue + Nuxt', sub:'Evan You · Progressive Framework',
+    desc:{en:'Vue is a progressive framework, more approachable than React. Nuxt is its Next.js equivalent with SSR, SSG and API Routes.',pt:'Vue é um framework progressivo, mais acessível que React. Nuxt é seu equivalente ao Next.js com SSR, SSG e API Routes no mesmo projeto.'},
+    tags:['Progressive','SSR','SSG','API Routes','Fullstack'],
+    use:{en:'Mid-size apps, smaller teams, corporate projects',pt:'Aplicações médias, times menores, projetos corporativos'},
+    pros:{en:['Gentle learning curve','Excellent documentation','Elegant and organized'],pt:['Curva de aprendizado gentil','Documentação excelente','Elegante e organizado']},
+    cons:{en:['Smaller ecosystem than React','Fewer job openings','Smaller community'],pt:['Ecossistema menor que React','Menos vagas no mercado','Comunidade menor']}
   },
-  {
-    cat: 'fullstack', icon: '🔥', name: 'SvelteKit', sub: 'Rich Harris · Svelte Framework',
-    desc: 'Compila para JS puro sem Virtual DOM. Framework fullstack nativo com SSR, SSG e rotas de servidor. Código mais limpo, bundles menores.',
-    tags: ['Compilado', 'Zero Runtime', 'Fullstack', 'Performance'],
-    use: 'Projetos onde performance é crítica, devs que valorizam DX',
-    pros: ['Performance superior', 'Código mais limpo', 'Bundle menor'],
-    cons: ['Ecossistema pequeno', 'Menos vagas', 'Menos bibliotecas disponíveis']
+  { cat:'fullstack', icon:'🔥', name:'SvelteKit', sub:'Rich Harris · Svelte Framework',
+    desc:{en:'Compiles to plain JS without Virtual DOM. Native fullstack with SSR, SSG and server routes. Cleaner code, smaller bundles.',pt:'Compila para JS puro sem Virtual DOM. Framework fullstack nativo com SSR, SSG e rotas de servidor. Código mais limpo, bundles menores.'},
+    tags:['Compiled','Zero Runtime','Fullstack','Performance'],
+    use:{en:'Performance-critical projects, devs who value DX',pt:'Projetos onde performance é crítica, devs que valorizam DX'},
+    pros:{en:['Superior performance','Cleaner code','Smaller bundle'],pt:['Performance superior','Código mais limpo','Bundle menor']},
+    cons:{en:['Small ecosystem','Fewer job openings','Fewer available libraries'],pt:['Ecossistema pequeno','Menos vagas','Menos bibliotecas disponíveis']}
   },
-  {
-    cat: 'be', icon: '🟢', name: 'Node.js', sub: 'OpenJS · JavaScript Runtime',
-    desc: 'Runtime JavaScript no servidor. Base para Express, Fastify e NestJS. Ideal quando o time já conhece JS e precisa de I/O performático.',
-    tags: ['JavaScript', 'Event-loop', 'I/O Assíncrono', 'NPM'],
-    use: 'APIs REST, microserviços, real-time (chat, notificações)',
-    pros: ['Mesmo idioma do frontend', 'Alta performance em I/O', 'Ecossistema NPM imenso'],
-    cons: ['Fraco em CPU intensivo', 'Callback hell histórico', 'Sem tipagem nativa']
+  { cat:'be', icon:'🟢', name:'Node.js', sub:'OpenJS · JavaScript Runtime',
+    desc:{en:'JavaScript runtime on the server. Foundation for Express, Fastify and NestJS. Ideal when the team already knows JS and needs performant I/O.',pt:'Runtime JavaScript no servidor. Base para Express, Fastify e NestJS. Ideal quando o time já conhece JS e precisa de I/O performático.'},
+    tags:['JavaScript','Event-loop','Async I/O','NPM'],
+    use:{en:'REST APIs, microservices, real-time (chat, notifications)',pt:'APIs REST, microserviços, real-time (chat, notificações)'},
+    pros:{en:['Same language as frontend','High I/O performance','Huge NPM ecosystem'],pt:['Mesmo idioma do frontend','Alta performance em I/O','Ecossistema NPM imenso']},
+    cons:{en:['Weak on CPU-intensive tasks','Historical callback hell','No native typing'],pt:['Fraco em CPU intensivo','Callback hell histórico','Sem tipagem nativa']}
   },
-  {
-    cat: 'be', icon: '🐍', name: 'Python + FastAPI', sub: 'Sebastián Ramírez · Modern API',
-    desc: 'FastAPI é o framework Python mais moderno para APIs. Tipagem com Pydantic, docs automáticas, performance próxima ao Node.',
-    tags: ['Async', 'OpenAPI', 'Type hints', 'Pydantic'],
-    use: 'APIs REST, backends com IA/ML, microserviços de dados',
-    pros: ['Performance excelente para Python', 'Docs geradas automaticamente', 'Integração nativa com ML'],
-    cons: ['Mais lento que Go/Node em puro I/O', 'GIL limita paralelismo', 'Ecossistema menor que Django']
+  { cat:'be', icon:'🐍', name:'Python + FastAPI', sub:'Sebastián Ramírez · Modern API',
+    desc:{en:'Most modern Python framework for APIs. Pydantic typing, auto-generated docs, performance close to Node.',pt:'FastAPI é o framework Python mais moderno para APIs. Tipagem com Pydantic, docs automáticas, performance próxima ao Node.'},
+    tags:['Async','OpenAPI','Type hints','Pydantic'],
+    use:{en:'REST APIs, AI/ML backends, data microservices',pt:'APIs REST, backends com IA/ML, microserviços de dados'},
+    pros:{en:['Excellent Python performance','Auto-generated docs','Native ML integration'],pt:['Performance excelente para Python','Docs geradas automaticamente','Integração nativa com ML']},
+    cons:{en:['Slower than Go/Node in pure I/O','GIL limits parallelism','Smaller ecosystem than Django'],pt:['Mais lento que Go/Node em puro I/O','GIL limita paralelismo','Ecossistema menor que Django']}
   },
-  {
-    cat: 'fullstack', icon: '🐍', name: 'Python + Django', sub: 'Django Software Foundation',
-    desc: 'Framework batteries-included para web. Admin gerado automaticamente, ORM poderoso, ideal para produtos que precisam ir rápido.',
-    tags: ['Batteries-included', 'ORM', 'Admin', 'MVT'],
-    use: 'CMSs, portais, backoffices, produtos com muito CRUD',
-    pros: ['Desenvolvimento rápido', 'Admin automático', 'Segurança por padrão'],
-    cons: ['Monolítico por natureza', 'Mais lento que FastAPI', 'ORM pode ser limitante']
+  { cat:'fullstack', icon:'🐍', name:'Python + Django', sub:'Django Software Foundation',
+    desc:{en:'Batteries-included web framework. Auto-generated admin, powerful ORM, ideal for products that need to ship fast.',pt:'Framework batteries-included para web. Admin gerado automaticamente, ORM poderoso, ideal para produtos que precisam ir rápido.'},
+    tags:['Batteries-included','ORM','Admin','MVT'],
+    use:{en:'CMSs, portals, backoffices, CRUD-heavy products',pt:'CMSs, portais, backoffices, produtos com muito CRUD'},
+    pros:{en:['Fast development','Automatic admin','Security by default'],pt:['Desenvolvimento rápido','Admin automático','Segurança por padrão']},
+    cons:{en:['Monolithic by nature','Slower than FastAPI','ORM can be limiting'],pt:['Monolítico por natureza','Mais lento que FastAPI','ORM pode ser limitante']}
   },
-  {
-    cat: 'be', icon: '🔵', name: 'Go (Golang)', sub: 'Google · Systems Language',
-    desc: 'Linguagem compilada, tipada e com goroutines nativas. Performance próxima ao C com legibilidade alta. Favorita para microsserviços.',
-    tags: ['Compilado', 'Concorrência', 'Microsserviços', 'Performance'],
-    use: 'Microsserviços, CLIs, ferramentas de infraestrutura, APIs de alta carga',
-    pros: ['Performance excepcional', 'Concorrência nativa', 'Binários pequenos e portáveis'],
-    cons: ['Sem generics robustos até recente', 'Ecossistema menor', 'Verboso para operações simples']
+  { cat:'be', icon:'🔵', name:'Go (Golang)', sub:'Google · Systems Language',
+    desc:{en:'Compiled, typed language with native goroutines. C-like performance with high readability. Favorite for microservices.',pt:'Linguagem compilada, tipada e com goroutines nativas. Performance próxima ao C com legibilidade alta. Favorita para microsserviços.'},
+    tags:['Compiled','Concurrency','Microservices','Performance'],
+    use:{en:'Microservices, CLIs, infrastructure tools, high-load APIs',pt:'Microsserviços, CLIs, ferramentas de infraestrutura, APIs de alta carga'},
+    pros:{en:['Exceptional performance','Native concurrency','Small portable binaries'],pt:['Performance excepcional','Concorrência nativa','Binários pequenos e portáveis']},
+    cons:{en:['Limited generics until recently','Smaller ecosystem','Verbose for simple operations'],pt:['Sem generics robustos até recente','Ecossistema menor','Verboso para operações simples']}
   },
-  {
-    cat: 'be', icon: '☕', name: 'Java + Spring Boot', sub: 'VMware · Enterprise Framework',
-    desc: 'Framework enterprise para Java/Kotlin. Padrão em bancos, fintechs e grandes corporações. Maduro, robusto e amplamente testado.',
-    tags: ['Enterprise', 'JVM', 'Microserviços', 'Kotlin compatível'],
-    use: 'Sistemas bancários, fintechs, grandes corporações, sistemas legados',
-    pros: ['Maturidade e estabilidade', 'Ecossistema JVM rico', 'Suporte excelente a Kotlin'],
-    cons: ['Verboso', 'Startup lento', 'Overhead de configuração']
+  { cat:'be', icon:'☕', name:'Java + Spring Boot', sub:'VMware · Enterprise Framework',
+    desc:{en:'Enterprise framework for Java/Kotlin. Standard in banks, fintechs and large corporations. Mature, robust and widely tested.',pt:'Framework enterprise para Java/Kotlin. Padrão em bancos, fintechs e grandes corporações. Maduro, robusto e amplamente testado.'},
+    tags:['Enterprise','JVM','Microservices','Kotlin compatible'],
+    use:{en:'Banking systems, fintechs, large corporations, legacy systems',pt:'Sistemas bancários, fintechs, grandes corporações, sistemas legados'},
+    pros:{en:['Maturity and stability','Rich JVM ecosystem','Excellent Kotlin support'],pt:['Maturidade e estabilidade','Ecossistema JVM rico','Suporte excelente a Kotlin']},
+    cons:{en:['Verbose','Slow startup','Configuration overhead'],pt:['Verboso','Startup lento','Overhead de configuração']}
   },
-  {
-    cat: 'mobile', icon: '📱', name: 'Swift', sub: 'Apple · iOS Native',
-    desc: 'Linguagem oficial da Apple para iOS, macOS, watchOS. Performance nativa, acesso total às APIs do sistema.',
-    tags: ['iOS', 'macOS', 'SwiftUI', 'Nativo'],
-    use: 'Apps iOS/macOS que precisam de performance máxima e acesso a hardware',
-    pros: ['Performance nativa', 'Acesso total ao ecossistema Apple', 'SwiftUI moderno'],
-    cons: ['Apenas ecossistema Apple', 'Curva de aprendizado', 'Necessita Mac para desenvolver']
+  { cat:'mobile', icon:'📱', name:'Swift', sub:'Apple · iOS Native',
+    desc:{en:"Apple's official language for iOS, macOS, watchOS. Native performance, full access to system APIs.",pt:'Linguagem oficial da Apple para iOS, macOS, watchOS. Performance nativa, acesso total às APIs do sistema.'},
+    tags:['iOS','macOS','SwiftUI','Native'],
+    use:{en:'iOS/macOS apps requiring maximum performance and hardware access',pt:'Apps iOS/macOS que precisam de performance máxima e acesso a hardware'},
+    pros:{en:['Native performance','Full Apple ecosystem access','Modern SwiftUI'],pt:['Performance nativa','Acesso total ao ecossistema Apple','SwiftUI moderno']},
+    cons:{en:['Apple ecosystem only','Learning curve','Requires Mac to develop'],pt:['Apenas ecossistema Apple','Curva de aprendizado','Necessita Mac para desenvolver']}
   },
-  {
-    cat: 'mobile', icon: '🤖', name: 'Kotlin', sub: 'JetBrains · Android Native',
-    desc: 'Linguagem oficial do Android. Moderna, concisa e interoperável com Java. Jetpack Compose modernizou o desenvolvimento de UI.',
-    tags: ['Android', 'Jetpack Compose', 'Coroutines', 'Nativo'],
-    use: 'Apps Android que precisam de acesso total ao hardware e APIs do sistema',
-    pros: ['Performance nativa Android', 'Jetpack Compose excelente', 'Interop com Java'],
-    cons: ['Apenas Android', 'Fragmentação de dispositivos', 'Build times longos']
+  { cat:'mobile', icon:'🤖', name:'Kotlin', sub:'JetBrains · Android Native',
+    desc:{en:'Official Android language. Modern, concise and interoperable with Java. Jetpack Compose modernized UI development.',pt:'Linguagem oficial do Android. Moderna, concisa e interoperável com Java. Jetpack Compose modernizou o desenvolvimento de UI.'},
+    tags:['Android','Jetpack Compose','Coroutines','Native'],
+    use:{en:'Android apps requiring full hardware and system API access',pt:'Apps Android que precisam de acesso total ao hardware e APIs do sistema'},
+    pros:{en:['Native Android performance','Excellent Jetpack Compose','Java interop'],pt:['Performance nativa Android','Jetpack Compose excelente','Interop com Java']},
+    cons:{en:['Android only','Device fragmentation','Long build times'],pt:['Apenas Android','Fragmentação de dispositivos','Build times longos']}
   },
-  {
-    cat: 'mobile', icon: '💙', name: 'Flutter', sub: 'Google · Cross-platform',
-    desc: 'Framework da Google para apps cross-platform com Dart. UI própria renderizada com Skia/Impeller. Um código para iOS, Android e Web.',
-    tags: ['Cross-platform', 'Dart', 'iOS', 'Android', 'Web'],
-    use: 'Apps mobile que precisam de uma base de código única com UI consistente',
-    pros: ['Uma base para todas as plataformas', 'Performance próxima ao nativo', 'UI consistente'],
-    cons: ['Dart tem ecossistema menor', 'Binários maiores', 'Acesso a APIs nativas mais complexo']
+  { cat:'mobile', icon:'💙', name:'Flutter', sub:'Google · Cross-platform',
+    desc:{en:"Google's framework for cross-platform apps with Dart. Own UI rendered with Skia/Impeller. One codebase for iOS, Android and Web.",pt:'Framework da Google para apps cross-platform com Dart. UI própria renderizada com Skia/Impeller. Um código para iOS, Android e Web.'},
+    tags:['Cross-platform','Dart','iOS','Android','Web'],
+    use:{en:'Mobile apps needing a single codebase with consistent UI',pt:'Apps mobile que precisam de uma base de código única com UI consistente'},
+    pros:{en:['One codebase for all platforms','Near-native performance','Consistent UI'],pt:['Uma base para todas as plataformas','Performance próxima ao nativo','UI consistente']},
+    cons:{en:['Dart has smaller ecosystem','Larger binaries','Native API access more complex'],pt:['Dart tem ecossistema menor','Binários maiores','Acesso a APIs nativas mais complexo']}
   },
-  {
-    cat: 'mobile', icon: '⚛️', name: 'React Native', sub: 'Meta · Cross-platform',
-    desc: 'Usa React para criar apps iOS e Android com componentes nativos reais. Compartilha lógica com web React.',
-    tags: ['Cross-platform', 'JavaScript', 'iOS', 'Android'],
-    use: 'Empresas com time web React que querem expandir para mobile',
-    pros: ['Reutiliza conhecimento React', 'Hot reload rápido', 'Comunidade grande'],
-    cons: ['Performance inferior ao nativo', 'Ponte JS/Nativo pode causar problemas', 'Debugging complexo']
+  { cat:'mobile', icon:'⚛️', name:'React Native', sub:'Meta · Cross-platform',
+    desc:{en:'Uses React to create iOS and Android apps with real native components. Shares logic with web React.',pt:'Usa React para criar apps iOS e Android com componentes nativos reais. Compartilha lógica com web React.'},
+    tags:['Cross-platform','JavaScript','iOS','Android'],
+    use:{en:'Companies with a React web team wanting to expand to mobile',pt:'Empresas com time web React que querem expandir para mobile'},
+    pros:{en:['Reuses React knowledge','Fast hot reload','Large community'],pt:['Reutiliza conhecimento React','Hot reload rápido','Comunidade grande']},
+    cons:{en:['Lower performance than native','JS/Native bridge can cause issues','Complex debugging'],pt:['Performance inferior ao nativo','Ponte JS/Nativo pode causar problemas','Debugging complexo']}
   },
-  {
-    cat: 'data', icon: '🐼', name: 'Python + Pandas/NumPy', sub: 'Ciência de Dados',
-    desc: 'Stack padrão para análise de dados. Pandas para manipulação tabular, NumPy para computação numérica. Base de todo o ecossistema de dados.',
-    tags: ['Data Analysis', 'ETL', 'Numpy', 'Jupyter'],
-    use: 'Análise exploratória, ETL, relatórios, preparação de dados para ML',
-    pros: ['Ecossistema incomparável', 'Pandas é poderoso para dados tabulares', 'Jupyter notebooks'],
-    cons: ['Performance em grandes volumes', 'GIL limita paralelismo', 'Memória intensiva']
+  { cat:'data', icon:'🐼', name:'Python + Pandas/NumPy', sub:'Data Science',
+    desc:{en:'Standard data analysis stack. Pandas for tabular manipulation, NumPy for numerical computing. Foundation of the entire data ecosystem.',pt:'Stack padrão para análise de dados. Pandas para manipulação tabular, NumPy para computação numérica. Base de todo o ecossistema de dados.'},
+    tags:['Data Analysis','ETL','NumPy','Jupyter'],
+    use:{en:'Exploratory analysis, ETL, reports, data preparation for ML',pt:'Análise exploratória, ETL, relatórios, preparação de dados para ML'},
+    pros:{en:['Unmatched ecosystem','Pandas is powerful for tabular data','Jupyter notebooks'],pt:['Ecossistema incomparável','Pandas é poderoso para dados tabulares','Jupyter notebooks']},
+    cons:{en:['Performance at high volumes','GIL limits parallelism','Memory intensive'],pt:['Performance em grandes volumes','GIL limita paralelismo','Memória intensiva']}
   },
-  {
-    cat: 'data', icon: '🧠', name: 'PyTorch / TensorFlow', sub: 'Meta / Google · Deep Learning',
-    desc: 'Frameworks para deep learning. PyTorch domina pesquisa. TensorFlow forte em produção. Base para modelos de linguagem e visão computacional.',
-    tags: ['Deep Learning', 'GPU', 'Neural Networks', 'MLOps'],
-    use: 'Treinar e servir modelos de IA, LLMs, visão computacional, NLP',
-    pros: ['Suporte a GPU/TPU', 'Ecossistema ML rico', 'Hugging Face integrado'],
-    cons: ['Curva de aprendizado steep', 'Infraestrutura cara', 'Debug difícil']
+  { cat:'data', icon:'🧠', name:'PyTorch / TensorFlow', sub:'Meta / Google · Deep Learning',
+    desc:{en:'Deep learning frameworks. PyTorch dominates research. TensorFlow strong in production. Foundation for language models and computer vision.',pt:'Frameworks para deep learning. PyTorch domina pesquisa. TensorFlow forte em produção. Base para modelos de linguagem e visão computacional.'},
+    tags:['Deep Learning','GPU','Neural Networks','MLOps'],
+    use:{en:'Training and serving AI models, LLMs, computer vision, NLP',pt:'Treinar e servir modelos de IA, LLMs, visão computacional, NLP'},
+    pros:{en:['GPU/TPU support','Rich ML ecosystem','Hugging Face integrated'],pt:['Suporte a GPU/TPU','Ecossistema ML rico','Hugging Face integrado']},
+    cons:{en:['Steep learning curve','Expensive infrastructure','Hard to debug'],pt:['Curva de aprendizado steep','Infraestrutura cara','Debug difícil']}
   },
-  {
-    cat: 'data', icon: '📊', name: 'Streamlit / Gradio', sub: 'Python · Data Apps',
-    desc: 'Criam interfaces web diretamente em Python. Streamlit para dashboards analíticos, Gradio para demos de modelos de IA.',
-    tags: ['Dashboards', 'IA Demo', 'No Frontend', 'Prototipagem'],
-    use: 'Dashboards internos, demos de ML, ferramentas de dados para não-devs',
-    pros: ['Zero conhecimento de frontend', 'Rápido para prototipar', 'Integração nativa com ML'],
-    cons: ['Não escala para produtos de consumo', 'Limitado em customização', 'Performance básica']
+  { cat:'data', icon:'📊', name:'Streamlit / Gradio', sub:'Python · Data Apps',
+    desc:{en:'Create web interfaces directly in Python. Streamlit for analytical dashboards, Gradio for AI model demos.',pt:'Criam interfaces web diretamente em Python. Streamlit para dashboards analíticos, Gradio para demos de modelos de IA.'},
+    tags:['Dashboards','AI Demo','No Frontend','Prototyping'],
+    use:{en:'Internal dashboards, ML demos, data tools for non-devs',pt:'Dashboards internos, demos de ML, ferramentas de dados para não-devs'},
+    pros:{en:['Zero frontend knowledge needed','Fast to prototype','Native ML integration'],pt:['Zero conhecimento de frontend','Rápido para prototipar','Integração nativa com ML']},
+    cons:{en:["Doesn't scale for consumer products",'Limited customization','Basic performance'],pt:['Não escala para produtos de consumo','Limitado em customização','Performance básica']}
   },
-  {
-    cat: 'infra', icon: '🐳', name: 'Docker + Kubernetes', sub: 'Containerização & Orquestração',
-    desc: 'Docker empacota aplicações em containers portáveis. Kubernetes orquestra containers em produção com escala, self-healing e rollouts.',
-    tags: ['Containers', 'Orquestração', 'DevOps', 'CI/CD'],
-    use: 'Qualquer aplicação em produção que precise de escala e confiabilidade',
-    pros: ['Ambiente consistente', 'Escala horizontal fácil', 'Padrão da indústria'],
-    cons: ['Kubernetes é complexo', 'Overhead para projetos pequenos', 'Curva de aprendizado alta']
+  { cat:'infra', icon:'🐳', name:'Docker + Kubernetes', sub:'Containerization & Orchestration',
+    desc:{en:'Docker packages apps in portable containers. Kubernetes orchestrates containers in production with scaling, self-healing and rollouts.',pt:'Docker empacota aplicações em containers portáveis. Kubernetes orquestra containers em produção com escala, self-healing e rollouts.'},
+    tags:['Containers','Orchestration','DevOps','CI/CD'],
+    use:{en:'Any production application needing scale and reliability',pt:'Qualquer aplicação em produção que precise de escala e confiabilidade'},
+    pros:{en:['Consistent environment','Easy horizontal scaling','Industry standard'],pt:['Ambiente consistente','Escala horizontal fácil','Padrão da indústria']},
+    cons:{en:['Kubernetes is complex','Overhead for small projects','High learning curve'],pt:['Kubernetes é complexo','Overhead para projetos pequenos','Curva de aprendizado alta']}
   },
-  {
-    cat: 'infra', icon: '🦀', name: 'Rust', sub: 'Mozilla · Systems Language',
-    desc: 'Linguagem de sistemas sem garbage collector. Memory safety garantida pelo compilador. Crescendo em WebAssembly, CLIs e infraestrutura.',
-    tags: ['Systems', 'WebAssembly', 'Memory Safe', 'Performance'],
-    use: 'Ferramentas CLI, WebAssembly, sistemas críticos, substituição de C/C++',
-    pros: ['Performance máxima', 'Memory safety sem GC', 'Zero-cost abstractions'],
-    cons: ['Curva de aprendizado extremamente alta', 'Borrow checker difícil', 'Desenvolvimento lento inicialmente']
+  { cat:'infra', icon:'🦀', name:'Rust', sub:'Mozilla · Systems Language',
+    desc:{en:'Systems language without garbage collector. Memory safety guaranteed by the compiler. Growing in WebAssembly, CLIs and infrastructure.',pt:'Linguagem de sistemas sem garbage collector. Memory safety garantida pelo compilador. Crescendo em WebAssembly, CLIs e infraestrutura.'},
+    tags:['Systems','WebAssembly','Memory Safe','Performance'],
+    use:{en:'CLI tools, WebAssembly, critical systems, C/C++ replacement',pt:'Ferramentas CLI, WebAssembly, sistemas críticos, substituição de C/C++'},
+    pros:{en:['Maximum performance','Memory safety without GC','Zero-cost abstractions'],pt:['Performance máxima','Memory safety sem GC','Zero-cost abstractions']},
+    cons:{en:['Extremely high learning curve','Hard borrow checker','Slow development initially'],pt:['Curva de aprendizado extremamente alta','Borrow checker difícil','Desenvolvimento lento inicialmente']}
   },
 ];
 
@@ -448,15 +430,17 @@ const i18n = {
     headerTag: '// technical reference 2026',
     subtitle: 'Languages, frameworks and ecosystems — what they do, advantages and disadvantages',
     pythonNote: "⚠ Python is a general-purpose language, not a framework. Its classification depends on what's built on top of it: Django is fullstack, FastAPI is pure backend, Streamlit and Gradio are data tools.",
-    legAll: 'ALL', legData: 'DATA & AI',
+    legAll: 'ALL', legFe: 'FRONTEND', legBe: 'BACKEND', legFullstack: 'FULLSTACK', legMobile: 'MOBILE', legData: 'DATA & AI', legInfra: 'INFRA & DEVOPS',
     indicatedFor: 'BEST FOR', advantages: 'ADVANTAGES', disadvantages: 'DISADVANTAGES',
+    footerCreated: '// created by', footerRef: 'Technical reference · 2026', footerComment: '// leave a comment', commentPlaceholder: 'Suggestions, corrections or questions...', namePlaceholder: 'Your name (optional)', submitBtn: 'SEND',
   },
   pt: {
     headerTag: '// referência técnica 2026',
     subtitle: 'Linguagens, frameworks e ecossistemas — para que servem, vantagens e desvantagens',
     pythonNote: '⚠ Python é uma linguagem de propósito geral, não um framework. Sua classificação depende do que está sendo usado sobre ele: Django é fullstack, FastAPI é backend puro, Streamlit e Gradio são ferramentas de dados.',
-    legAll: 'TODAS', legData: 'DADOS & IA',
+    legAll: 'TODAS', legFe: 'FRONTEND', legBe: 'BACKEND', legFullstack: 'FULLSTACK', legMobile: 'MOBILE', legData: 'DADOS & IA', legInfra: 'INFRA & DEVOPS',
     indicatedFor: 'INDICADO PARA', advantages: 'VANTAGENS', disadvantages: 'DESVANTAGENS',
+    footerCreated: '// criado por', footerRef: 'Referência técnica · 2026', footerComment: '// deixe um comentário', commentPlaceholder: 'Sugestões, correções ou dúvidas...', namePlaceholder: 'Seu nome (opcional)', submitBtn: 'ENVIAR',
   }
 };
 
@@ -474,7 +458,18 @@ function setLang(lang) {
   document.getElementById('subtitle').textContent = t.subtitle;
   document.getElementById('python-note').textContent = t.pythonNote;
   document.getElementById('leg-all').textContent = t.legAll;
+  document.getElementById('leg-fe').textContent = t.legFe;
+  document.getElementById('leg-be').textContent = t.legBe;
+  document.getElementById('leg-fullstack').textContent = t.legFullstack;
+  document.getElementById('leg-mobile').textContent = t.legMobile;
   document.getElementById('leg-data').textContent = t.legData;
+  document.getElementById('leg-infra').textContent = t.legInfra;
+  document.getElementById('footer-created').textContent = t.footerCreated;
+  document.getElementById('footer-ref').textContent = t.footerRef;
+  document.getElementById('footer-comment').textContent = t.footerComment;
+  document.getElementById('comment-placeholder').placeholder = t.commentPlaceholder;
+  document.getElementById('name-placeholder').placeholder = t.namePlaceholder;
+  document.getElementById('submit-btn').textContent = t.submitBtn;
   render(currentFilter);
 }
 
@@ -496,18 +491,18 @@ function render(filter) {
       </div>
       <div class="card-name">${s.name}</div>
       <div class="card-subtitle">${s.sub}</div>
-      <div class="card-desc">${s.desc}</div>
+      <div class="card-desc">${s.desc[lang]}</div>
       <div style="font-size:10px;color:var(--muted);margin-bottom:8px;letter-spacing:1px;">${t.indicatedFor}</div>
-      <div class="card-desc" style="margin-bottom:16px;">${s.use}</div>
+      <div class="card-desc" style="margin-bottom:16px;">${s.use[lang]}</div>
       <div class="tags">${s.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}</div>
       <div class="pros-cons">
         <div class="pros">
           <div class="pros-cons-title pro-title">${t.advantages}</div>
-          <ul>${s.pros.map(p => `<li>${p}</li>`).join('')}</ul>
+          <ul>${s.pros[lang].map(p => `<li>${p}</li>`).join('')}</ul>
         </div>
         <div class="cons">
           <div class="pros-cons-title con-title">${t.disadvantages}</div>
-          <ul>${s.cons.map(c => `<li>${c}</li>`).join('')}</ul>
+          <ul>${s.cons[lang].map(c => `<li>${c}</li>`).join('')}</ul>
         </div>
       </div>
     `;
@@ -528,9 +523,9 @@ render('all');
 <footer style="margin: 0; padding: 64px 48px; border-top: 1px solid #1e1e2e; display: grid; grid-template-columns: 1fr 1fr; gap: 48px; background: #0d0d14;">
 
   <div>
-    <div style="font-size:10px;letter-spacing:3px;color:#6b6b80;text-transform:uppercase;margin-bottom:16px;">// criado por</div>
+    <div style="font-size:10px;letter-spacing:3px;color:#6b6b80;text-transform:uppercase;margin-bottom:16px;"><span id="footer-created">// created by</span></div>
     <div style="font-family:'Syne',sans-serif;font-size:22px;font-weight:700;color:#e8e8f0;margin-bottom:6px;">Marco Perrenoud</div>
-    <div style="font-size:12px;color:#6b6b80;margin-bottom:28px;">Referência técnica · 2026</div>
+    <div style="font-size:12px;color:#6b6b80;margin-bottom:28px;"><span id="footer-ref">Technical reference · 2026</span></div>
     <div style="display:flex;flex-direction:column;gap:12px;">
       <a href="mailto:marcoperrenoud.at.gmail.com" style="display:flex;align-items:center;gap:10px;text-decoration:none;color:#b0b0c0;font-size:12px;" onmouseover="this.style.color='#7c6aff'" onmouseout="this.style.color='#b0b0c0'">
         <span style="width:28px;height:28px;border:1px solid #1e1e2e;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:14px;">✉</span>
@@ -548,11 +543,11 @@ render('all');
   </div>
 
   <div>
-    <div style="font-size:10px;letter-spacing:3px;color:#6b6b80;text-transform:uppercase;margin-bottom:16px;">// deixe um comentário</div>
-    <textarea id="comment-input" placeholder="Sugestões, correções ou dúvidas..." style="width:100%;height:100px;background:#111118;border:1px solid #1e1e2e;border-radius:6px;padding:14px;color:#e8e8f0;font-family:'DM Mono',monospace;font-size:12px;resize:vertical;outline:none;" onfocus="this.style.borderColor='#7c6aff'" onblur="this.style.borderColor='#1e1e2e'"></textarea>
+    <div style="font-size:10px;letter-spacing:3px;color:#6b6b80;text-transform:uppercase;margin-bottom:16px;"><span id="footer-comment">// leave a comment</span></div>
+    <textarea id="comment-input" id="comment-placeholder" placeholder="Suggestions, corrections or questions..." style="width:100%;height:100px;background:#111118;border:1px solid #1e1e2e;border-radius:6px;padding:14px;color:#e8e8f0;font-family:'DM Mono',monospace;font-size:12px;resize:vertical;outline:none;" onfocus="this.style.borderColor='#7c6aff'" onblur="this.style.borderColor='#1e1e2e'"></textarea>
     <div style="display:flex;gap:10px;margin-top:10px;align-items:center;">
-      <input id="comment-name" type="text" placeholder="Seu nome (opcional)" style="flex:1;background:#111118;border:1px solid #1e1e2e;border-radius:6px;padding:10px 14px;color:#e8e8f0;font-family:'DM Mono',monospace;font-size:12px;outline:none;" onfocus="this.style.borderColor='#7c6aff'" onblur="this.style.borderColor='#1e1e2e'">
-      <button onclick="submitComment()" style="background:#7c6aff;border:none;color:#fff;font-family:'Syne',sans-serif;font-size:12px;font-weight:600;padding:10px 20px;border-radius:6px;cursor:pointer;letter-spacing:1px;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">ENVIAR</button>
+      <input id="comment-name" type="text" id="name-placeholder" placeholder="Your name (optional)" style="flex:1;background:#111118;border:1px solid #1e1e2e;border-radius:6px;padding:10px 14px;color:#e8e8f0;font-family:'DM Mono',monospace;font-size:12px;outline:none;" onfocus="this.style.borderColor='#7c6aff'" onblur="this.style.borderColor='#1e1e2e'">
+      <button onclick="submitComment()" style="background:#7c6aff;border:none;color:#fff;font-family:'Syne',sans-serif;font-size:12px;font-weight:600;padding:10px 20px;border-radius:6px;cursor:pointer;letter-spacing:1px;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'"id="submit-btn">SEND</button>
     </div>
     <div id="comment-list" style="margin-top:20px;display:flex;flex-direction:column;gap:10px;"></div>
   </div>
