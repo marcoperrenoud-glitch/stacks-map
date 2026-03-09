@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mapa de Stacks Modernas</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0f;
+    --surface: #111118;
+    --border: #1e1e2e;
+    --text: #e8e8f0;
+    --muted: #6b6b80;
+    --accent: #7c6aff;
+
+    --fe: #ff6b6b;
+    --be: #4ecdc4;
+    --mobile: #ffe66d;
+    --data: #a8e6cf;
+    --infra: #ff8b94;
+    --fullstack: #c5a3ff;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Mono', monospace;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  header {
+    padding: 48px 48px 0;
+    position: relative;
+  }
+
+  .header-tag {
+    font-size: 11px;
+    letter-spacing: 3px;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(28px, 4vw, 52px);
+    font-weight: 800;
+    line-height: 1.1;
+    background: linear-gradient(135deg, #fff 0%, var(--accent) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 8px;
+  }
+
+  .subtitle {
+    color: var(--muted);
+    font-size: 13px;
+    margin-bottom: 40px;
+  }
+
+  .legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    padding: 0 48px 32px;
+  }
+
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 11px;
+    letter-spacing: 1px;
+    color: var(--muted);
+    cursor: pointer;
+    padding: 6px 12px;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    transition: all 0.2s;
+  }
+
+  .legend-item:hover, .legend-item.active {
+    color: var(--text);
+    border-color: var(--accent);
+  }
+
+  .legend-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 2px;
+    padding: 0 48px 48px;
+  }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 28px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    opacity: 0.8;
+    transition: height 0.25s;
+  }
+
+  .card:hover {
+    border-color: rgba(124, 106, 255, 0.3);
+    transform: translateY(-2px);
+    z-index: 1;
+  }
+
+  .card:hover::before { height: 3px; }
+
+  .card.hidden { opacity: 0.15; pointer-events: none; }
+
+  .card-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 16px;
+  }
+
+  .card-icon {
+    font-size: 28px;
+    line-height: 1;
+  }
+
+  .card-category {
+    font-size: 9px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 4px 8px;
+    border-radius: 3px;
+    font-weight: 500;
+  }
+
+  .card-name {
+    font-family: 'Syne', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+
+  .card-subtitle {
+    font-size: 11px;
+    color: var(--muted);
+    margin-bottom: 16px;
+  }
+
+  .card-desc {
+    font-size: 12px;
+    line-height: 1.7;
+    color: #b0b0c0;
+    margin-bottom: 20px;
+  }
+
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 20px;
+  }
+
+  .tag {
+    font-size: 10px;
+    padding: 3px 8px;
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    color: var(--muted);
+    letter-spacing: 0.5px;
+  }
+
+  .pros-cons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    border-top: 1px solid var(--border);
+    padding-top: 16px;
+  }
+
+  .pros-cons-title {
+    font-size: 9px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    font-weight: 500;
+  }
+
+  .pro-title { color: #4ecdc4; }
+  .con-title { color: #ff6b6b; }
+
+  .pros-cons ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .pros-cons li {
+    font-size: 11px;
+    color: #9090a8;
+    line-height: 1.4;
+    padding-left: 12px;
+    position: relative;
+  }
+
+  .pros li::before { content: '+'; position: absolute; left: 0; color: #4ecdc4; }
+  .cons li::before { content: '−'; position: absolute; left: 0; color: #ff6b6b; }
+
+  /* Category colors */
+  .fe .card-category { background: rgba(255,107,107,0.1); color: var(--fe); }
+  .fe::before { background: var(--fe); }
+  .be .card-category { background: rgba(78,205,196,0.1); color: var(--be); }
+  .be::before { background: var(--be); }
+  .mobile .card-category { background: rgba(255,230,109,0.1); color: var(--mobile); }
+  .mobile::before { background: var(--mobile); }
+  .data .card-category { background: rgba(168,230,207,0.1); color: var(--data); }
+  .data::before { background: var(--data); }
+  .infra .card-category { background: rgba(255,139,148,0.1); color: var(--infra); }
+  .infra::before { background: var(--infra); }
+  .fullstack .card-category { background: rgba(197,163,255,0.1); color: var(--fullstack); }
+  .fullstack::before { background: var(--fullstack); }
+
+  .noise {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 100;
+    opacity: 0.4;
+  }
+</style>
+</head>
+<body>
+<div class="noise"></div>
+
+<header>
+  <div class="header-tag">// referência técnica 2026</div>
+  <h1>Mapa de Stacks</h1>
+  <p class="subtitle">Linguagens, frameworks e ecossistemas — para que servem, vantagens e desvantagens</p>
+  <p style="font-size:11px;color:var(--muted);margin-bottom:8px;max-width:640px;line-height:1.7;">⚠ Python é uma linguagem de propósito geral, não um framework. Sua classificação depende do que está sendo usado sobre ele: Django é fullstack, FastAPI é backend puro, Streamlit e Gradio são ferramentas de dados.</p>
+</header>
+
+<div class="legend">
+  <div class="legend-item active" onclick="filter('all')"><span class="legend-dot" style="background:#7c6aff"></span>TODAS</div>
+  <div class="legend-item" onclick="filter('fe')"><span class="legend-dot" style="background:var(--fe)"></span>FRONTEND</div>
+  <div class="legend-item" onclick="filter('be')"><span class="legend-dot" style="background:var(--be)"></span>BACKEND</div>
+  <div class="legend-item" onclick="filter('fullstack')"><span class="legend-dot" style="background:var(--fullstack)"></span>FULLSTACK</div>
+  <div class="legend-item" onclick="filter('mobile')"><span class="legend-dot" style="background:var(--mobile)"></span>MOBILE</div>
+  <div class="legend-item" onclick="filter('data')"><span class="legend-dot" style="background:var(--data)"></span>DADOS & IA</div>
+  <div class="legend-item" onclick="filter('infra')"><span class="legend-dot" style="background:var(--infra)"></span>INFRA & DEVOPS</div>
+</div>
+
+<div class="grid" id="grid"></div>
+
+<script>
+const stacks = [
+  {
+    cat: 'fe', icon: '⚛️', name: 'React', sub: 'Meta · JavaScript/TypeScript',
+    desc: 'Biblioteca para construção de interfaces. Padrão da indústria para SPAs e componentes reutilizáveis. Base para Next.js e React Native.',
+    tags: ['SPA', 'Componentes', 'Virtual DOM', 'Hooks'],
+    use: 'E-commerces, dashboards, apps SaaS, portais',
+    pros: ['Ecossistema gigante', 'Mercado de trabalho forte', 'Flexível e componível'],
+    cons: ['Não é um framework completo', 'Curva de aprendizado de padrões', 'Requer decisões de arquitetura']
+  },
+  {
+    cat: 'fullstack', icon: '▲', name: 'Next.js', sub: 'Vercel · React Framework',
+    desc: 'Framework fullstack sobre React. Suporta SSR, SSG e API Routes no mesmo projeto. Deploy quase automático na Vercel.',
+    tags: ['SSR', 'SSG', 'API Routes', 'SEO', 'Fullstack'],
+    use: 'Produtos SaaS, e-commerces, sites de conteúdo, portais',
+    pros: ['Melhor SEO que React puro', 'Fullstack em um projeto', 'Ecossistema maduro'],
+    cons: ['Lock-in com Vercel', 'Complexidade crescente', 'Builds podem ser lentos']
+  },
+  {
+    cat: 'fullstack', icon: '💚', name: 'Vue + Nuxt', sub: 'Evan You · Progressive Framework',
+    desc: 'Vue é um framework progressivo, mais acessível que React. Nuxt é seu equivalente ao Next.js com SSR, SSG e API Routes no mesmo projeto.',
+    tags: ['Progressivo', 'SSR', 'SSG', 'API Routes', 'Fullstack'],
+    use: 'Aplicações médias, times menores, projetos corporativos',
+    pros: ['Curva de aprendizado gentil', 'Documentação excelente', 'Elegante e organizado'],
+    cons: ['Ecossistema menor que React', 'Menos vagas no mercado', 'Comunidade menor']
+  },
+  {
+    cat: 'fullstack', icon: '🔥', name: 'SvelteKit', sub: 'Rich Harris · Svelte Framework',
+    desc: 'Compila para JS puro sem Virtual DOM. Framework fullstack nativo com SSR, SSG e rotas de servidor. Código mais limpo, bundles menores.',
+    tags: ['Compilado', 'Zero Runtime', 'Fullstack', 'Performance'],
+    use: 'Projetos onde performance é crítica, devs que valorizam DX',
+    pros: ['Performance superior', 'Código mais limpo', 'Bundle menor'],
+    cons: ['Ecossistema pequeno', 'Menos vagas', 'Menos bibliotecas disponíveis']
+  },
+  {
+    cat: 'be', icon: '🟢', name: 'Node.js', sub: 'OpenJS · JavaScript Runtime',
+    desc: 'Runtime JavaScript no servidor. Base para Express, Fastify e NestJS. Ideal quando o time já conhece JS e precisa de I/O performático.',
+    tags: ['JavaScript', 'Event-loop', 'I/O Assíncrono', 'NPM'],
+    use: 'APIs REST, microserviços, real-time (chat, notificações)',
+    pros: ['Mesmo idioma do frontend', 'Alta performance em I/O', 'Ecossistema NPM imenso'],
+    cons: ['Fraco em CPU intensivo', 'Callback hell histórico', 'Sem tipagem nativa']
+  },
+  {
+    cat: 'be', icon: '🐍', name: 'Python + FastAPI', sub: 'Sebastián Ramírez · Modern API',
+    desc: 'FastAPI é o framework Python mais moderno para APIs. Tipagem com Pydantic, docs automáticas, performance próxima ao Node.',
+    tags: ['Async', 'OpenAPI', 'Type hints', 'Pydantic'],
+    use: 'APIs REST, backends com IA/ML, microserviços de dados',
+    pros: ['Performance excelente para Python', 'Docs geradas automaticamente', 'Integração nativa com ML'],
+    cons: ['Mais lento que Go/Node em puro I/O', 'GIL limita paralelismo', 'Ecossistema menor que Django']
+  },
+  {
+    cat: 'fullstack', icon: '🐍', name: 'Python + Django', sub: 'Django Software Foundation',
+    desc: 'Framework batteries-included para web. Admin gerado automaticamente, ORM poderoso, ideal para produtos que precisam ir rápido.',
+    tags: ['Batteries-included', 'ORM', 'Admin', 'MVT'],
+    use: 'CMSs, portais, backoffices, produtos com muito CRUD',
+    pros: ['Desenvolvimento rápido', 'Admin automático', 'Segurança por padrão'],
+    cons: ['Monolítico por natureza', 'Mais lento que FastAPI', 'ORM pode ser limitante']
+  },
+  {
+    cat: 'be', icon: '🔵', name: 'Go (Golang)', sub: 'Google · Systems Language',
+    desc: 'Linguagem compilada, tipada e com goroutines nativas. Performance próxima ao C com legibilidade alta. Favorita para microsserviços.',
+    tags: ['Compilado', 'Concorrência', 'Microsserviços', 'Performance'],
+    use: 'Microsserviços, CLIs, ferramentas de infraestrutura, APIs de alta carga',
+    pros: ['Performance excepcional', 'Concorrência nativa', 'Binários pequenos e portáveis'],
+    cons: ['Sem generics robustos até recente', 'Ecossistema menor', 'Verboso para operações simples']
+  },
+  {
+    cat: 'be', icon: '☕', name: 'Java + Spring Boot', sub: 'VMware · Enterprise Framework',
+    desc: 'Framework enterprise para Java/Kotlin. Padrão em bancos, fintechs e grandes corporações. Maduro, robusto e amplamente testado.',
+    tags: ['Enterprise', 'JVM', 'Microserviços', 'Kotlin compatível'],
+    use: 'Sistemas bancários, fintechs, grandes corporações, sistemas legados',
+    pros: ['Maturidade e estabilidade', 'Ecossistema JVM rico', 'Suporte excelente a Kotlin'],
+    cons: ['Verboso', 'Startup lento', 'Overhead de configuração']
+  },
+  {
+    cat: 'mobile', icon: '📱', name: 'Swift', sub: 'Apple · iOS Native',
+    desc: 'Linguagem oficial da Apple para iOS, macOS, watchOS. Performance nativa, acesso total às APIs do sistema.',
+    tags: ['iOS', 'macOS', 'SwiftUI', 'Nativo'],
+    use: 'Apps iOS/macOS que precisam de performance máxima e acesso a hardware',
+    pros: ['Performance nativa', 'Acesso total ao ecossistema Apple', 'SwiftUI moderno'],
+    cons: ['Apenas ecossistema Apple', 'Curva de aprendizado', 'Necessita Mac para desenvolver']
+  },
+  {
+    cat: 'mobile', icon: '🤖', name: 'Kotlin', sub: 'JetBrains · Android Native',
+    desc: 'Linguagem oficial do Android. Moderna, concisa e interoperável com Java. Jetpack Compose modernizou o desenvolvimento de UI.',
+    tags: ['Android', 'Jetpack Compose', 'Coroutines', 'Nativo'],
+    use: 'Apps Android que precisam de acesso total ao hardware e APIs do sistema',
+    pros: ['Performance nativa Android', 'Jetpack Compose excelente', 'Interop com Java'],
+    cons: ['Apenas Android', 'Fragmentação de dispositivos', 'Build times longos']
+  },
+  {
+    cat: 'mobile', icon: '💙', name: 'Flutter', sub: 'Google · Cross-platform',
+    desc: 'Framework da Google para apps cross-platform com Dart. UI própria renderizada com Skia/Impeller. Um código para iOS, Android e Web.',
+    tags: ['Cross-platform', 'Dart', 'iOS', 'Android', 'Web'],
+    use: 'Apps mobile que precisam de uma base de código única com UI consistente',
+    pros: ['Uma base para todas as plataformas', 'Performance próxima ao nativo', 'UI consistente'],
+    cons: ['Dart tem ecossistema menor', 'Binários maiores', 'Acesso a APIs nativas mais complexo']
+  },
+  {
+    cat: 'mobile', icon: '⚛️', name: 'React Native', sub: 'Meta · Cross-platform',
+    desc: 'Usa React para criar apps iOS e Android com componentes nativos reais. Compartilha lógica com web React.',
+    tags: ['Cross-platform', 'JavaScript', 'iOS', 'Android'],
+    use: 'Empresas com time web React que querem expandir para mobile',
+    pros: ['Reutiliza conhecimento React', 'Hot reload rápido', 'Comunidade grande'],
+    cons: ['Performance inferior ao nativo', 'Ponte JS/Nativo pode causar problemas', 'Debugging complexo']
+  },
+  {
+    cat: 'data', icon: '🐼', name: 'Python + Pandas/NumPy', sub: 'Ciência de Dados',
+    desc: 'Stack padrão para análise de dados. Pandas para manipulação tabular, NumPy para computação numérica. Base de todo o ecossistema de dados.',
+    tags: ['Data Analysis', 'ETL', 'Numpy', 'Jupyter'],
+    use: 'Análise exploratória, ETL, relatórios, preparação de dados para ML',
+    pros: ['Ecossistema incomparável', 'Pandas é poderoso para dados tabulares', 'Jupyter notebooks'],
+    cons: ['Performance em grandes volumes', 'GIL limita paralelismo', 'Memória intensiva']
+  },
+  {
+    cat: 'data', icon: '🧠', name: 'PyTorch / TensorFlow', sub: 'Meta / Google · Deep Learning',
+    desc: 'Frameworks para deep learning. PyTorch domina pesquisa. TensorFlow forte em produção. Base para modelos de linguagem e visão computacional.',
+    tags: ['Deep Learning', 'GPU', 'Neural Networks', 'MLOps'],
+    use: 'Treinar e servir modelos de IA, LLMs, visão computacional, NLP',
+    pros: ['Suporte a GPU/TPU', 'Ecossistema ML rico', 'Hugging Face integrado'],
+    cons: ['Curva de aprendizado steep', 'Infraestrutura cara', 'Debug difícil']
+  },
+  {
+    cat: 'data', icon: '📊', name: 'Streamlit / Gradio', sub: 'Python · Data Apps',
+    desc: 'Criam interfaces web diretamente em Python. Streamlit para dashboards analíticos, Gradio para demos de modelos de IA.',
+    tags: ['Dashboards', 'IA Demo', 'No Frontend', 'Prototipagem'],
+    use: 'Dashboards internos, demos de ML, ferramentas de dados para não-devs',
+    pros: ['Zero conhecimento de frontend', 'Rápido para prototipar', 'Integração nativa com ML'],
+    cons: ['Não escala para produtos de consumo', 'Limitado em customização', 'Performance básica']
+  },
+  {
+    cat: 'infra', icon: '🐳', name: 'Docker + Kubernetes', sub: 'Containerização & Orquestração',
+    desc: 'Docker empacota aplicações em containers portáveis. Kubernetes orquestra containers em produção com escala, self-healing e rollouts.',
+    tags: ['Containers', 'Orquestração', 'DevOps', 'CI/CD'],
+    use: 'Qualquer aplicação em produção que precise de escala e confiabilidade',
+    pros: ['Ambiente consistente', 'Escala horizontal fácil', 'Padrão da indústria'],
+    cons: ['Kubernetes é complexo', 'Overhead para projetos pequenos', 'Curva de aprendizado alta']
+  },
+  {
+    cat: 'infra', icon: '🦀', name: 'Rust', sub: 'Mozilla · Systems Language',
+    desc: 'Linguagem de sistemas sem garbage collector. Memory safety garantida pelo compilador. Crescendo em WebAssembly, CLIs e infraestrutura.',
+    tags: ['Systems', 'WebAssembly', 'Memory Safe', 'Performance'],
+    use: 'Ferramentas CLI, WebAssembly, sistemas críticos, substituição de C/C++',
+    pros: ['Performance máxima', 'Memory safety sem GC', 'Zero-cost abstractions'],
+    cons: ['Curva de aprendizado extremamente alta', 'Borrow checker difícil', 'Desenvolvimento lento inicialmente']
+  },
+];
+
+function render(filter = 'all') {
+  const grid = document.getElementById('grid');
+  grid.innerHTML = '';
+
+  stacks.forEach(s => {
+    const show = filter === 'all' || s.cat === filter;
+    const card = document.createElement('div');
+    card.className = `card ${s.cat} ${show ? '' : 'hidden'}`;
+    card.innerHTML = `
+      <div class="card-header">
+        <span class="card-icon">${s.icon}</span>
+        <span class="card-category">${catLabel(s.cat)}</span>
+      </div>
+      <div class="card-name">${s.name}</div>
+      <div class="card-subtitle">${s.sub}</div>
+      <div class="card-desc">${s.desc}</div>
+      <div style="font-size:10px;color:var(--muted);margin-bottom:8px;letter-spacing:1px;">INDICADO PARA</div>
+      <div class="card-desc" style="margin-bottom:16px;">${s.use}</div>
+      <div class="tags">${s.tags.map(t => `<span class="tag">${t}</span>`).join('')}</div>
+      <div class="pros-cons">
+        <div class="pros">
+          <div class="pros-cons-title pro-title">VANTAGENS</div>
+          <ul>${s.pros.map(p => `<li>${p}</li>`).join('')}</ul>
+        </div>
+        <div class="cons">
+          <div class="pros-cons-title con-title">DESVANTAGENS</div>
+          <ul>${s.cons.map(c => `<li>${c}</li>`).join('')}</ul>
+        </div>
+      </div>
+    `;
+    grid.appendChild(card);
+  });
+}
+
+function catLabel(cat) {
+  const map = { fe: 'Frontend', be: 'Backend', fullstack: 'Fullstack', mobile: 'Mobile', data: 'Dados & IA', infra: 'Infra & DevOps' };
+  return map[cat] || cat;
+}
+
+function filter(cat) {
+  document.querySelectorAll('.legend-item').forEach(el => el.classList.remove('active'));
+  event.currentTarget.classList.add('active');
+  render(cat);
+}
+
+render();
+</script>
+</body>
+</html>
+
+<footer style="margin: 0; padding: 64px 48px; border-top: 1px solid #1e1e2e; display: grid; grid-template-columns: 1fr 1fr; gap: 48px; background: #0d0d14;">
+
+  <div>
+    <div style="font-size:10px;letter-spacing:3px;color:#6b6b80;text-transform:uppercase;margin-bottom:16px;">// criado por</div>
+    <div style="font-family:'Syne',sans-serif;font-size:22px;font-weight:700;color:#e8e8f0;margin-bottom:6px;">Marco Perrenoud</div>
+    <div style="font-size:12px;color:#6b6b80;margin-bottom:28px;">Referência técnica · 2026</div>
+    <div style="display:flex;flex-direction:column;gap:12px;">
+      <a href="mailto:marcoperrenoud@gmail.com" style="display:flex;align-items:center;gap:10px;text-decoration:none;color:#b0b0c0;font-size:12px;" onmouseover="this.style.color='#7c6aff'" onmouseout="this.style.color='#b0b0c0'">
+        <span style="width:28px;height:28px;border:1px solid #1e1e2e;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:14px;">✉</span>
+        marcoperrenoud@gmail.com
+      </a>
+      <a href="https://wa.me/5512982215501" target="_blank" style="display:flex;align-items:center;gap:10px;text-decoration:none;color:#b0b0c0;font-size:12px;" onmouseover="this.style.color='#4ecdc4'" onmouseout="this.style.color='#b0b0c0'">
+        <span style="width:28px;height:28px;border:1px solid #1e1e2e;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:14px;">📱</span>
+        (12) 98221-5501
+      </a>
+      <a href="https://www.linkedin.com/in/marco-moura-b1a3911b/" target="_blank" style="display:flex;align-items:center;gap:10px;text-decoration:none;color:#b0b0c0;font-size:12px;" onmouseover="this.style.color='#4a9eff'" onmouseout="this.style.color='#b0b0c0'">
+        <span style="width:28px;height:28px;border:1px solid #1e1e2e;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:14px;">in</span>
+        linkedin.com/in/marco-moura
+      </a>
+    </div>
+  </div>
+
+  <div>
+    <div style="font-size:10px;letter-spacing:3px;color:#6b6b80;text-transform:uppercase;margin-bottom:16px;">// deixe um comentário</div>
+    <textarea id="comment-input" placeholder="Sugestões, correções ou dúvidas..." style="width:100%;height:100px;background:#111118;border:1px solid #1e1e2e;border-radius:6px;padding:14px;color:#e8e8f0;font-family:'DM Mono',monospace;font-size:12px;resize:vertical;outline:none;" onfocus="this.style.borderColor='#7c6aff'" onblur="this.style.borderColor='#1e1e2e'"></textarea>
+    <div style="display:flex;gap:10px;margin-top:10px;align-items:center;">
+      <input id="comment-name" type="text" placeholder="Seu nome (opcional)" style="flex:1;background:#111118;border:1px solid #1e1e2e;border-radius:6px;padding:10px 14px;color:#e8e8f0;font-family:'DM Mono',monospace;font-size:12px;outline:none;" onfocus="this.style.borderColor='#7c6aff'" onblur="this.style.borderColor='#1e1e2e'">
+      <button onclick="submitComment()" style="background:#7c6aff;border:none;color:#fff;font-family:'Syne',sans-serif;font-size:12px;font-weight:600;padding:10px 20px;border-radius:6px;cursor:pointer;letter-spacing:1px;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">ENVIAR</button>
+    </div>
+    <div id="comment-list" style="margin-top:20px;display:flex;flex-direction:column;gap:10px;"></div>
+  </div>
+
+</footer>
+
+<script>
+const comments = [];
+function submitComment() {
+  const text = document.getElementById('comment-input').value.trim();
+  const name = document.getElementById('comment-name').value.trim() || 'Anônimo';
+  if (!text) return;
+  comments.unshift({ name, text, date: new Date().toLocaleDateString('pt-BR') });
+  document.getElementById('comment-input').value = '';
+  document.getElementById('comment-name').value = '';
+  renderComments();
+}
+function renderComments() {
+  const list = document.getElementById('comment-list');
+  list.innerHTML = comments.map(c => `
+    <div style="background:#111118;border:1px solid #1e1e2e;border-radius:6px;padding:14px;">
+      <div style="display:flex;justify-content:space-between;margin-bottom:6px;">
+        <span style="font-family:'Syne',sans-serif;font-size:12px;font-weight:600;color:#e8e8f0;">${c.name}</span>
+        <span style="font-size:10px;color:#6b6b80;">${c.date}</span>
+      </div>
+      <div style="font-size:12px;color:#9090a8;line-height:1.6;">${c.text}</div>
+    </div>
+  `).join('');
+}
+</script>
