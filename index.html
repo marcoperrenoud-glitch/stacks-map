@@ -3,105 +3,480 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Stacks Map</title>
-<meta name="description" content="Linguagens, frameworks e ecossistemas — para que servem, vantagens e desvantagens">
-<meta property="og:title" content="Stacks Map · 2026">
-<meta property="og:description" content="Languages, frameworks and ecosystems — what they do, advantages and disadvantages">
-<meta property="og:image" content="https://marcoperrenoud-glitch.github.io/stacks-map/og-image.png">
-<meta property="og:url" content="https://marcoperrenoud-glitch.github.io/stacks-map">
-<meta property="og:type" content="website">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://marcoperrenoud-glitch.github.io/stacks-map/og-image.png">
+<title>Mapa de Stacks Modernas</title>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #0a0a0f; --surface: #111118; --border: #1e1e2e;
-    --text: #e8e8f0; --muted: #6b6b80; --accent: #7c6aff;
-    --fe: #ff6b6b; --be: #4ecdc4; --mobile: #ffe66d;
-    --data: #a8e6cf; --infra: #ff8b94; --fullstack: #c5a3ff;
+    --bg: #0a0a0f;
+    --surface: #111118;
+    --border: #1e1e2e;
+    --text: #e8e8f0;
+    --muted: #6b6b80;
+    --accent: #7c6aff;
+
+    --fe: #ff6b6b;
+    --be: #4ecdc4;
+    --mobile: #ffe66d;
+    --data: #a8e6cf;
+    --infra: #ff8b94;
+    --fullstack: #c5a3ff;
   }
+
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  body { background: var(--bg); color: var(--text); font-family: 'DM Mono', monospace; min-height: 100vh; overflow-x: hidden; }
-  header { padding: 48px 48px 0; }
-  .header-top { display: flex; justify-content: space-between; align-items: flex-start; }
-  .header-tag { font-size: 11px; letter-spacing: 3px; color: var(--muted); text-transform: uppercase; margin-bottom: 12px; }
-  h1 { font-family: 'Syne', sans-serif; font-size: clamp(28px, 4vw, 52px); font-weight: 800; line-height: 1.1; background: linear-gradient(135deg, #fff 0%, var(--accent) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 8px; }
-  .subtitle { color: var(--muted); font-size: 13px; margin-bottom: 12px; }
-  .python-note { font-size: 11px; color: var(--muted); margin-bottom: 32px; max-width: 640px; line-height: 1.7; }
-  .lang-toggle { display: flex; gap: 4px; background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 4px; flex-shrink: 0; margin-top: 4px; }
-  .lang-btn { font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 2px; padding: 6px 14px; border-radius: 4px; border: none; cursor: pointer; transition: all 0.2s; background: transparent; color: var(--muted); }
-  .lang-btn.active { background: var(--accent); color: #fff; }
-  .legend { display: flex; flex-wrap: wrap; gap: 12px; padding: 0 48px 32px; }
-  .legend-item { display: flex; align-items: center; gap: 8px; font-size: 11px; letter-spacing: 1px; color: var(--muted); cursor: pointer; padding: 6px 12px; border: 1px solid var(--border); border-radius: 4px; transition: all 0.2s; }
-  .legend-item:hover, .legend-item.active { color: var(--text); border-color: var(--accent); }
-  .legend-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
-  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 2px; padding: 0 48px 48px; }
-  .card { background: var(--surface); border: 1px solid var(--border); padding: 28px; transition: all 0.25s ease; position: relative; overflow: hidden; }
-  .card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; opacity: 0.8; transition: height 0.25s; }
-  .card:hover { border-color: rgba(124,106,255,0.3); transform: translateY(-2px); z-index: 1; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Mono', monospace;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  header {
+    padding: 48px 48px 0;
+    position: relative;
+  }
+
+  .header-tag {
+    font-size: 11px;
+    letter-spacing: 3px;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(28px, 4vw, 52px);
+    font-weight: 800;
+    line-height: 1.1;
+    background: linear-gradient(135deg, #fff 0%, var(--accent) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 8px;
+  }
+
+  .subtitle {
+    color: var(--muted);
+    font-size: 13px;
+    margin-bottom: 40px;
+  }
+
+  .legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    padding: 0 48px 32px;
+  }
+
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 11px;
+    letter-spacing: 1px;
+    color: var(--muted);
+    cursor: pointer;
+    padding: 6px 12px;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    transition: all 0.2s;
+  }
+
+  .legend-item:hover, .legend-item.active {
+    color: var(--text);
+    border-color: var(--accent);
+  }
+
+  .legend-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 2px;
+    padding: 0 48px 48px;
+  }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 28px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    opacity: 0.8;
+    transition: height 0.25s;
+  }
+
+  .card:hover {
+    border-color: rgba(124, 106, 255, 0.3);
+    transform: translateY(-2px);
+    z-index: 1;
+  }
+
   .card:hover::before { height: 3px; }
+
   .card.hidden { opacity: 0.15; pointer-events: none; }
-  .card-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 16px; }
-  .card-icon { font-size: 28px; line-height: 1; }
-  .card-category { font-size: 9px; letter-spacing: 2px; text-transform: uppercase; padding: 4px 8px; border-radius: 3px; font-weight: 500; }
-  .card-name { font-family: 'Syne', sans-serif; font-size: 20px; font-weight: 700; margin-bottom: 4px; }
-  .card-subtitle { font-size: 11px; color: var(--muted); margin-bottom: 16px; }
-  .card-desc { font-size: 12px; line-height: 1.7; color: #b0b0c0; margin-bottom: 20px; }
-  .tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 20px; }
-  .tag { font-size: 10px; padding: 3px 8px; border: 1px solid var(--border); border-radius: 3px; color: var(--muted); letter-spacing: 0.5px; }
-  .pros-cons { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; border-top: 1px solid var(--border); padding-top: 16px; }
-  .pros-cons-title { font-size: 9px; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 8px; font-weight: 500; }
-  .pro-title { color: #4ecdc4; } .con-title { color: #ff6b6b; }
-  .pros-cons ul { list-style: none; display: flex; flex-direction: column; gap: 4px; }
-  .pros-cons li { font-size: 11px; color: #9090a8; line-height: 1.4; padding-left: 12px; position: relative; }
+
+  .card-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 16px;
+  }
+
+  .card-icon {
+    font-size: 28px;
+    line-height: 1;
+  }
+
+  .card-category {
+    font-size: 9px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 4px 8px;
+    border-radius: 3px;
+    font-weight: 500;
+  }
+
+  .card-name {
+    font-family: 'Syne', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+
+  .card-subtitle {
+    font-size: 11px;
+    color: var(--muted);
+    margin-bottom: 16px;
+  }
+
+  .card-desc {
+    font-size: 12px;
+    line-height: 1.7;
+    color: #b0b0c0;
+    margin-bottom: 20px;
+  }
+
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 20px;
+  }
+
+  .tag {
+    font-size: 10px;
+    padding: 3px 8px;
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    color: var(--muted);
+    letter-spacing: 0.5px;
+  }
+
+  .pros-cons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    border-top: 1px solid var(--border);
+    padding-top: 16px;
+  }
+
+  .pros-cons-title {
+    font-size: 9px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    font-weight: 500;
+  }
+
+  .pro-title { color: #4ecdc4; }
+  .con-title { color: #ff6b6b; }
+
+  .pros-cons ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .pros-cons li {
+    font-size: 11px;
+    color: #9090a8;
+    line-height: 1.4;
+    padding-left: 12px;
+    position: relative;
+  }
+
   .pros li::before { content: '+'; position: absolute; left: 0; color: #4ecdc4; }
   .cons li::before { content: '−'; position: absolute; left: 0; color: #ff6b6b; }
-  .fe .card-category { background: rgba(255,107,107,0.1); color: var(--fe); } .fe::before { background: var(--fe); }
-  .be .card-category { background: rgba(78,205,196,0.1); color: var(--be); } .be::before { background: var(--be); }
-  .mobile .card-category { background: rgba(255,230,109,0.1); color: var(--mobile); } .mobile::before { background: var(--mobile); }
-  .data .card-category { background: rgba(168,230,207,0.1); color: var(--data); } .data::before { background: var(--data); }
-  .infra .card-category { background: rgba(255,139,148,0.1); color: var(--infra); } .infra::before { background: var(--infra); }
-  .fullstack .card-category { background: rgba(197,163,255,0.1); color: var(--fullstack); } .fullstack::before { background: var(--fullstack); }
-  .noise { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E"); pointer-events: none; z-index: 100; opacity: 0.4; }
+
+  /* Category colors */
+  .fe .card-category { background: rgba(255,107,107,0.1); color: var(--fe); }
+  .fe::before { background: var(--fe); }
+  .be .card-category { background: rgba(78,205,196,0.1); color: var(--be); }
+  .be::before { background: var(--be); }
+  .mobile .card-category { background: rgba(255,230,109,0.1); color: var(--mobile); }
+  .mobile::before { background: var(--mobile); }
+  .data .card-category { background: rgba(168,230,207,0.1); color: var(--data); }
+  .data::before { background: var(--data); }
+  .infra .card-category { background: rgba(255,139,148,0.1); color: var(--infra); }
+  .infra::before { background: var(--infra); }
+  .fullstack .card-category { background: rgba(197,163,255,0.1); color: var(--fullstack); }
+  .fullstack::before { background: var(--fullstack); }
+
+  .noise {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 100;
+    opacity: 0.4;
+  }
 </style>
 </head>
 <body>
 <div class="noise"></div>
 
 <header>
-  <div class="header-top">
-    <div>
-      <div class="header-tag" id="header-tag">// technical reference 2026</div>
-      <h1>Stacks Map</h1>
-    </div>
-    <div class="lang-toggle">
-      <button class="lang-btn" onclick="setLang('pt')" id="btn-pt">PT</button>
-      <button class="lang-btn active" onclick="setLang('en')" id="btn-en">EN</button>
-    </div>
-  </div>
-  <p class="subtitle" id="subtitle">Languages, frameworks and ecosystems — what they do, advantages and disadvantages</p>
-  <p class="python-note" id="python-note">⚠ Python is a general-purpose language, not a framework. Its classification depends on what's built on top of it: Django is fullstack, FastAPI is pure backend, Streamlit and Gradio are data tools.</p>
+  <div class="header-tag">// referência técnica 2026</div>
+  <h1>Mapa de Stacks</h1>
+  <p class="subtitle">Linguagens, frameworks e ecossistemas — para que servem, vantagens e desvantagens</p>
+  <p style="font-size:11px;color:var(--muted);margin-bottom:8px;max-width:640px;line-height:1.7;">⚠ Python é uma linguagem de propósito geral, não um framework. Sua classificação depende do que está sendo usado sobre ele: Django é fullstack, FastAPI é backend puro, Streamlit e Gradio são ferramentas de dados.</p>
 </header>
 
 <div class="legend">
-  <div class="legend-item active" onclick="filter('all')"><span class="legend-dot" style="background:#7c6aff"></span><span id="leg-all">ALL</span></div>
-  <div class="legend-item" onclick="filter('fe')"><span class="legend-dot" style="background:var(--fe)"></span><span>FRONTEND</span></div>
-  <div class="legend-item" onclick="filter('be')"><span class="legend-dot" style="background:var(--be)"></span><span>BACKEND</span></div>
-  <div class="legend-item" onclick="filter('fullstack')"><span class="legend-dot" style="background:var(--fullstack)"></span><span>FULLSTACK</span></div>
-  <div class="legend-item" onclick="filter('mobile')"><span class="legend-dot" style="background:var(--mobile)"></span><span>MOBILE</span></div>
-  <div class="legend-item" onclick="filter('data')"><span class="legend-dot" style="background:var(--data)"></span><span id="leg-data">DATA & AI</span></div>
-  <div class="legend-item" onclick="filter('infra')"><span class="legend-dot" style="background:var(--infra)"></span><span>INFRA & DEVOPS</span></div>
+  <div class="legend-item active" onclick="filter('all')"><span class="legend-dot" style="background:#7c6aff"></span>TODAS</div>
+  <div class="legend-item" onclick="filter('fe')"><span class="legend-dot" style="background:var(--fe)"></span>FRONTEND</div>
+  <div class="legend-item" onclick="filter('be')"><span class="legend-dot" style="background:var(--be)"></span>BACKEND</div>
+  <div class="legend-item" onclick="filter('fullstack')"><span class="legend-dot" style="background:var(--fullstack)"></span>FULLSTACK</div>
+  <div class="legend-item" onclick="filter('mobile')"><span class="legend-dot" style="background:var(--mobile)"></span>MOBILE</div>
+  <div class="legend-item" onclick="filter('data')"><span class="legend-dot" style="background:var(--data)"></span>DADOS & IA</div>
+  <div class="legend-item" onclick="filter('infra')"><span class="legend-dot" style="background:var(--infra)"></span>INFRA & DEVOPS</div>
 </div>
 
 <div class="grid" id="grid"></div>
 
-<footer style="margin:0;padding:64px 48px;border-top:1px solid #1e1e2e;display:grid;grid-template-columns:1fr 1fr;gap:48px;background:#0d0d14;">
+<script>
+const stacks = [
+  {
+    cat: 'fe', icon: '⚛️', name: 'React', sub: 'Meta · JavaScript/TypeScript',
+    desc: 'Biblioteca para construção de interfaces. Padrão da indústria para SPAs e componentes reutilizáveis. Base para Next.js e React Native.',
+    tags: ['SPA', 'Componentes', 'Virtual DOM', 'Hooks'],
+    use: 'E-commerces, dashboards, apps SaaS, portais',
+    pros: ['Ecossistema gigante', 'Mercado de trabalho forte', 'Flexível e componível'],
+    cons: ['Não é um framework completo', 'Curva de aprendizado de padrões', 'Requer decisões de arquitetura']
+  },
+  {
+    cat: 'fullstack', icon: '▲', name: 'Next.js', sub: 'Vercel · React Framework',
+    desc: 'Framework fullstack sobre React. Suporta SSR, SSG e API Routes no mesmo projeto. Deploy quase automático na Vercel.',
+    tags: ['SSR', 'SSG', 'API Routes', 'SEO', 'Fullstack'],
+    use: 'Produtos SaaS, e-commerces, sites de conteúdo, portais',
+    pros: ['Melhor SEO que React puro', 'Fullstack em um projeto', 'Ecossistema maduro'],
+    cons: ['Lock-in com Vercel', 'Complexidade crescente', 'Builds podem ser lentos']
+  },
+  {
+    cat: 'fullstack', icon: '💚', name: 'Vue + Nuxt', sub: 'Evan You · Progressive Framework',
+    desc: 'Vue é um framework progressivo, mais acessível que React. Nuxt é seu equivalente ao Next.js com SSR, SSG e API Routes no mesmo projeto.',
+    tags: ['Progressivo', 'SSR', 'SSG', 'API Routes', 'Fullstack'],
+    use: 'Aplicações médias, times menores, projetos corporativos',
+    pros: ['Curva de aprendizado gentil', 'Documentação excelente', 'Elegante e organizado'],
+    cons: ['Ecossistema menor que React', 'Menos vagas no mercado', 'Comunidade menor']
+  },
+  {
+    cat: 'fullstack', icon: '🔥', name: 'SvelteKit', sub: 'Rich Harris · Svelte Framework',
+    desc: 'Compila para JS puro sem Virtual DOM. Framework fullstack nativo com SSR, SSG e rotas de servidor. Código mais limpo, bundles menores.',
+    tags: ['Compilado', 'Zero Runtime', 'Fullstack', 'Performance'],
+    use: 'Projetos onde performance é crítica, devs que valorizam DX',
+    pros: ['Performance superior', 'Código mais limpo', 'Bundle menor'],
+    cons: ['Ecossistema pequeno', 'Menos vagas', 'Menos bibliotecas disponíveis']
+  },
+  {
+    cat: 'be', icon: '🟢', name: 'Node.js', sub: 'OpenJS · JavaScript Runtime',
+    desc: 'Runtime JavaScript no servidor. Base para Express, Fastify e NestJS. Ideal quando o time já conhece JS e precisa de I/O performático.',
+    tags: ['JavaScript', 'Event-loop', 'I/O Assíncrono', 'NPM'],
+    use: 'APIs REST, microserviços, real-time (chat, notificações)',
+    pros: ['Mesmo idioma do frontend', 'Alta performance em I/O', 'Ecossistema NPM imenso'],
+    cons: ['Fraco em CPU intensivo', 'Callback hell histórico', 'Sem tipagem nativa']
+  },
+  {
+    cat: 'be', icon: '🐍', name: 'Python + FastAPI', sub: 'Sebastián Ramírez · Modern API',
+    desc: 'FastAPI é o framework Python mais moderno para APIs. Tipagem com Pydantic, docs automáticas, performance próxima ao Node.',
+    tags: ['Async', 'OpenAPI', 'Type hints', 'Pydantic'],
+    use: 'APIs REST, backends com IA/ML, microserviços de dados',
+    pros: ['Performance excelente para Python', 'Docs geradas automaticamente', 'Integração nativa com ML'],
+    cons: ['Mais lento que Go/Node em puro I/O', 'GIL limita paralelismo', 'Ecossistema menor que Django']
+  },
+  {
+    cat: 'fullstack', icon: '🐍', name: 'Python + Django', sub: 'Django Software Foundation',
+    desc: 'Framework batteries-included para web. Admin gerado automaticamente, ORM poderoso, ideal para produtos que precisam ir rápido.',
+    tags: ['Batteries-included', 'ORM', 'Admin', 'MVT'],
+    use: 'CMSs, portais, backoffices, produtos com muito CRUD',
+    pros: ['Desenvolvimento rápido', 'Admin automático', 'Segurança por padrão'],
+    cons: ['Monolítico por natureza', 'Mais lento que FastAPI', 'ORM pode ser limitante']
+  },
+  {
+    cat: 'be', icon: '🔵', name: 'Go (Golang)', sub: 'Google · Systems Language',
+    desc: 'Linguagem compilada, tipada e com goroutines nativas. Performance próxima ao C com legibilidade alta. Favorita para microsserviços.',
+    tags: ['Compilado', 'Concorrência', 'Microsserviços', 'Performance'],
+    use: 'Microsserviços, CLIs, ferramentas de infraestrutura, APIs de alta carga',
+    pros: ['Performance excepcional', 'Concorrência nativa', 'Binários pequenos e portáveis'],
+    cons: ['Sem generics robustos até recente', 'Ecossistema menor', 'Verboso para operações simples']
+  },
+  {
+    cat: 'be', icon: '☕', name: 'Java + Spring Boot', sub: 'VMware · Enterprise Framework',
+    desc: 'Framework enterprise para Java/Kotlin. Padrão em bancos, fintechs e grandes corporações. Maduro, robusto e amplamente testado.',
+    tags: ['Enterprise', 'JVM', 'Microserviços', 'Kotlin compatível'],
+    use: 'Sistemas bancários, fintechs, grandes corporações, sistemas legados',
+    pros: ['Maturidade e estabilidade', 'Ecossistema JVM rico', 'Suporte excelente a Kotlin'],
+    cons: ['Verboso', 'Startup lento', 'Overhead de configuração']
+  },
+  {
+    cat: 'mobile', icon: '📱', name: 'Swift', sub: 'Apple · iOS Native',
+    desc: 'Linguagem oficial da Apple para iOS, macOS, watchOS. Performance nativa, acesso total às APIs do sistema.',
+    tags: ['iOS', 'macOS', 'SwiftUI', 'Nativo'],
+    use: 'Apps iOS/macOS que precisam de performance máxima e acesso a hardware',
+    pros: ['Performance nativa', 'Acesso total ao ecossistema Apple', 'SwiftUI moderno'],
+    cons: ['Apenas ecossistema Apple', 'Curva de aprendizado', 'Necessita Mac para desenvolver']
+  },
+  {
+    cat: 'mobile', icon: '🤖', name: 'Kotlin', sub: 'JetBrains · Android Native',
+    desc: 'Linguagem oficial do Android. Moderna, concisa e interoperável com Java. Jetpack Compose modernizou o desenvolvimento de UI.',
+    tags: ['Android', 'Jetpack Compose', 'Coroutines', 'Nativo'],
+    use: 'Apps Android que precisam de acesso total ao hardware e APIs do sistema',
+    pros: ['Performance nativa Android', 'Jetpack Compose excelente', 'Interop com Java'],
+    cons: ['Apenas Android', 'Fragmentação de dispositivos', 'Build times longos']
+  },
+  {
+    cat: 'mobile', icon: '💙', name: 'Flutter', sub: 'Google · Cross-platform',
+    desc: 'Framework da Google para apps cross-platform com Dart. UI própria renderizada com Skia/Impeller. Um código para iOS, Android e Web.',
+    tags: ['Cross-platform', 'Dart', 'iOS', 'Android', 'Web'],
+    use: 'Apps mobile que precisam de uma base de código única com UI consistente',
+    pros: ['Uma base para todas as plataformas', 'Performance próxima ao nativo', 'UI consistente'],
+    cons: ['Dart tem ecossistema menor', 'Binários maiores', 'Acesso a APIs nativas mais complexo']
+  },
+  {
+    cat: 'mobile', icon: '⚛️', name: 'React Native', sub: 'Meta · Cross-platform',
+    desc: 'Usa React para criar apps iOS e Android com componentes nativos reais. Compartilha lógica com web React.',
+    tags: ['Cross-platform', 'JavaScript', 'iOS', 'Android'],
+    use: 'Empresas com time web React que querem expandir para mobile',
+    pros: ['Reutiliza conhecimento React', 'Hot reload rápido', 'Comunidade grande'],
+    cons: ['Performance inferior ao nativo', 'Ponte JS/Nativo pode causar problemas', 'Debugging complexo']
+  },
+  {
+    cat: 'data', icon: '🐼', name: 'Python + Pandas/NumPy', sub: 'Ciência de Dados',
+    desc: 'Stack padrão para análise de dados. Pandas para manipulação tabular, NumPy para computação numérica. Base de todo o ecossistema de dados.',
+    tags: ['Data Analysis', 'ETL', 'Numpy', 'Jupyter'],
+    use: 'Análise exploratória, ETL, relatórios, preparação de dados para ML',
+    pros: ['Ecossistema incomparável', 'Pandas é poderoso para dados tabulares', 'Jupyter notebooks'],
+    cons: ['Performance em grandes volumes', 'GIL limita paralelismo', 'Memória intensiva']
+  },
+  {
+    cat: 'data', icon: '🧠', name: 'PyTorch / TensorFlow', sub: 'Meta / Google · Deep Learning',
+    desc: 'Frameworks para deep learning. PyTorch domina pesquisa. TensorFlow forte em produção. Base para modelos de linguagem e visão computacional.',
+    tags: ['Deep Learning', 'GPU', 'Neural Networks', 'MLOps'],
+    use: 'Treinar e servir modelos de IA, LLMs, visão computacional, NLP',
+    pros: ['Suporte a GPU/TPU', 'Ecossistema ML rico', 'Hugging Face integrado'],
+    cons: ['Curva de aprendizado steep', 'Infraestrutura cara', 'Debug difícil']
+  },
+  {
+    cat: 'data', icon: '📊', name: 'Streamlit / Gradio', sub: 'Python · Data Apps',
+    desc: 'Criam interfaces web diretamente em Python. Streamlit para dashboards analíticos, Gradio para demos de modelos de IA.',
+    tags: ['Dashboards', 'IA Demo', 'No Frontend', 'Prototipagem'],
+    use: 'Dashboards internos, demos de ML, ferramentas de dados para não-devs',
+    pros: ['Zero conhecimento de frontend', 'Rápido para prototipar', 'Integração nativa com ML'],
+    cons: ['Não escala para produtos de consumo', 'Limitado em customização', 'Performance básica']
+  },
+  {
+    cat: 'infra', icon: '🐳', name: 'Docker + Kubernetes', sub: 'Containerização & Orquestração',
+    desc: 'Docker empacota aplicações em containers portáveis. Kubernetes orquestra containers em produção com escala, self-healing e rollouts.',
+    tags: ['Containers', 'Orquestração', 'DevOps', 'CI/CD'],
+    use: 'Qualquer aplicação em produção que precise de escala e confiabilidade',
+    pros: ['Ambiente consistente', 'Escala horizontal fácil', 'Padrão da indústria'],
+    cons: ['Kubernetes é complexo', 'Overhead para projetos pequenos', 'Curva de aprendizado alta']
+  },
+  {
+    cat: 'infra', icon: '🦀', name: 'Rust', sub: 'Mozilla · Systems Language',
+    desc: 'Linguagem de sistemas sem garbage collector. Memory safety garantida pelo compilador. Crescendo em WebAssembly, CLIs e infraestrutura.',
+    tags: ['Systems', 'WebAssembly', 'Memory Safe', 'Performance'],
+    use: 'Ferramentas CLI, WebAssembly, sistemas críticos, substituição de C/C++',
+    pros: ['Performance máxima', 'Memory safety sem GC', 'Zero-cost abstractions'],
+    cons: ['Curva de aprendizado extremamente alta', 'Borrow checker difícil', 'Desenvolvimento lento inicialmente']
+  },
+];
+
+function render(filter = 'all') {
+  const grid = document.getElementById('grid');
+  grid.innerHTML = '';
+
+  stacks.forEach(s => {
+    const show = filter === 'all' || s.cat === filter;
+    const card = document.createElement('div');
+    card.className = `card ${s.cat} ${show ? '' : 'hidden'}`;
+    card.innerHTML = `
+      <div class="card-header">
+        <span class="card-icon">${s.icon}</span>
+        <span class="card-category">${catLabel(s.cat)}</span>
+      </div>
+      <div class="card-name">${s.name}</div>
+      <div class="card-subtitle">${s.sub}</div>
+      <div class="card-desc">${s.desc}</div>
+      <div style="font-size:10px;color:var(--muted);margin-bottom:8px;letter-spacing:1px;">INDICADO PARA</div>
+      <div class="card-desc" style="margin-bottom:16px;">${s.use}</div>
+      <div class="tags">${s.tags.map(t => `<span class="tag">${t}</span>`).join('')}</div>
+      <div class="pros-cons">
+        <div class="pros">
+          <div class="pros-cons-title pro-title">VANTAGENS</div>
+          <ul>${s.pros.map(p => `<li>${p}</li>`).join('')}</ul>
+        </div>
+        <div class="cons">
+          <div class="pros-cons-title con-title">DESVANTAGENS</div>
+          <ul>${s.cons.map(c => `<li>${c}</li>`).join('')}</ul>
+        </div>
+      </div>
+    `;
+    grid.appendChild(card);
+  });
+}
+
+function catLabel(cat) {
+  const map = { fe: 'Frontend', be: 'Backend', fullstack: 'Fullstack', mobile: 'Mobile', data: 'Dados & IA', infra: 'Infra & DevOps' };
+  return map[cat] || cat;
+}
+
+function filter(cat) {
+  document.querySelectorAll('.legend-item').forEach(el => el.classList.remove('active'));
+  event.currentTarget.classList.add('active');
+  render(cat);
+}
+
+render();
+</script>
+</body>
+</html>
+
+<footer style="margin: 0; padding: 64px 48px; border-top: 1px solid #1e1e2e; display: grid; grid-template-columns: 1fr 1fr; gap: 48px; background: #0d0d14;">
+
   <div>
-    <div style="font-size:10px;letter-spacing:3px;color:#6b6b80;text-transform:uppercase;margin-bottom:16px;" id="footer-by">// created by</div>
+    <div style="font-size:10px;letter-spacing:3px;color:#6b6b80;text-transform:uppercase;margin-bottom:16px;">// criado por</div>
     <div style="font-family:'Syne',sans-serif;font-size:22px;font-weight:700;color:#e8e8f0;margin-bottom:6px;">Marco Perrenoud</div>
-    <div style="font-size:12px;color:#6b6b80;margin-bottom:28px;" id="footer-ref">Technical reference · 2026</div>
+    <div style="font-size:12px;color:#6b6b80;margin-bottom:28px;">Referência técnica · 2026</div>
     <div style="display:flex;flex-direction:column;gap:12px;">
-      <a href="mailto:marcoperrenoud(at)gmail.com" style="display:flex;align-items:center;gap:10px;text-decoration:none;color:#b0b0c0;font-size:12px;" onmouseover="this.style.color='#7c6aff'" onmouseout="this.style.color='#b0b0c0'">
+      <a href="mailto:marcoperrenoud.at.gmail.com" style="display:flex;align-items:center;gap:10px;text-decoration:none;color:#b0b0c0;font-size:12px;" onmouseover="this.style.color='#7c6aff'" onmouseout="this.style.color='#b0b0c0'">
         <span style="width:28px;height:28px;border:1px solid #1e1e2e;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:14px;">✉</span>
         marcoperrenoud(at)gmail.com
       </a>
@@ -115,252 +490,26 @@
       </a>
     </div>
   </div>
+
   <div>
-    <div style="font-size:10px;letter-spacing:3px;color:#6b6b80;text-transform:uppercase;margin-bottom:16px;" id="footer-comment">// leave a comment</div>
-    <textarea id="comment-input" placeholder="Suggestions, corrections or questions..." style="width:100%;height:100px;background:#111118;border:1px solid #1e1e2e;border-radius:6px;padding:14px;color:#e8e8f0;font-family:'DM Mono',monospace;font-size:12px;resize:vertical;outline:none;" onfocus="this.style.borderColor='#7c6aff'" onblur="this.style.borderColor='#1e1e2e'"></textarea>
+    <div style="font-size:10px;letter-spacing:3px;color:#6b6b80;text-transform:uppercase;margin-bottom:16px;">// deixe um comentário</div>
+    <textarea id="comment-input" placeholder="Sugestões, correções ou dúvidas..." style="width:100%;height:100px;background:#111118;border:1px solid #1e1e2e;border-radius:6px;padding:14px;color:#e8e8f0;font-family:'DM Mono',monospace;font-size:12px;resize:vertical;outline:none;" onfocus="this.style.borderColor='#7c6aff'" onblur="this.style.borderColor='#1e1e2e'"></textarea>
     <div style="display:flex;gap:10px;margin-top:10px;align-items:center;">
-      <input id="comment-name" type="text" placeholder="Your name (optional)" style="flex:1;background:#111118;border:1px solid #1e1e2e;border-radius:6px;padding:10px 14px;color:#e8e8f0;font-family:'DM Mono',monospace;font-size:12px;outline:none;" onfocus="this.style.borderColor='#7c6aff'" onblur="this.style.borderColor='#1e1e2e'">
-      <button onclick="submitComment()" id="submit-btn" style="background:#7c6aff;border:none;color:#fff;font-family:'Syne',sans-serif;font-size:12px;font-weight:600;padding:10px 20px;border-radius:6px;cursor:pointer;letter-spacing:1px;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">SEND</button>
+      <input id="comment-name" type="text" placeholder="Seu nome (opcional)" style="flex:1;background:#111118;border:1px solid #1e1e2e;border-radius:6px;padding:10px 14px;color:#e8e8f0;font-family:'DM Mono',monospace;font-size:12px;outline:none;" onfocus="this.style.borderColor='#7c6aff'" onblur="this.style.borderColor='#1e1e2e'">
+      <button onclick="submitComment()" style="background:#7c6aff;border:none;color:#fff;font-family:'Syne',sans-serif;font-size:12px;font-weight:600;padding:10px 20px;border-radius:6px;cursor:pointer;letter-spacing:1px;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">ENVIAR</button>
     </div>
     <div id="comment-list" style="margin-top:20px;display:flex;flex-direction:column;gap:10px;"></div>
   </div>
+
 </footer>
 
 <script>
-let currentLang = 'en';
-let currentFilter = 'all';
-
-const i18n = {
-  en: {
-    headerTag: '// technical reference 2026',
-    subtitle: 'Languages, frameworks and ecosystems — what they do, advantages and disadvantages',
-    pythonNote: "⚠ Python is a general-purpose language, not a framework. Its classification depends on what's built on top of it: Django is fullstack, FastAPI is pure backend, Streamlit and Gradio are data tools.",
-    legAll: 'ALL', legData: 'DATA & AI',
-    indicatedFor: 'BEST FOR', advantages: 'ADVANTAGES', disadvantages: 'DISADVANTAGES',
-    footerBy: '// created by', footerRef: 'Technical reference · 2026', footerComment: '// leave a comment',
-    commentPlaceholder: 'Suggestions, corrections or questions...', namePlaceholder: 'Your name (optional)',
-    sendBtn: 'SEND', anonymous: 'Anonymous',
-  },
-  pt: {
-    headerTag: '// referência técnica 2026',
-    subtitle: 'Linguagens, frameworks e ecossistemas — para que servem, vantagens e desvantagens',
-    pythonNote: '⚠ Python é uma linguagem de propósito geral, não um framework. Sua classificação depende do que está sendo usado sobre ele: Django é fullstack, FastAPI é backend puro, Streamlit e Gradio são ferramentas de dados.',
-    legAll: 'TODAS', legData: 'DADOS & IA',
-    indicatedFor: 'INDICADO PARA', advantages: 'VANTAGENS', disadvantages: 'DESVANTAGENS',
-    footerBy: '// criado por', footerRef: 'Referência técnica · 2026', footerComment: '// deixe um comentário',
-    commentPlaceholder: 'Sugestões, correções ou dúvidas...', namePlaceholder: 'Seu nome (opcional)',
-    sendBtn: 'ENVIAR', anonymous: 'Anônimo',
-  }
-};
-
-const catLabels = {
-  en: { fe: 'Frontend', be: 'Backend', fullstack: 'Fullstack', mobile: 'Mobile', data: 'Data & AI', infra: 'Infra & DevOps' },
-  pt: { fe: 'Frontend', be: 'Backend', fullstack: 'Fullstack', mobile: 'Mobile', data: 'Dados & IA', infra: 'Infra & DevOps' }
-};
-
-const stacks = [
-  { cat:'fe', icon:'⚛️', name:'React', sub:'Meta · JavaScript/TypeScript',
-    desc:{ en:'UI library for building interfaces. Industry standard for SPAs and reusable components. Foundation for Next.js and React Native.', pt:'Biblioteca para construção de interfaces. Padrão da indústria para SPAs e componentes reutilizáveis. Base para Next.js e React Native.' },
-    tags:['SPA','Components','Virtual DOM','Hooks'],
-    use:{ en:'E-commerce, dashboards, SaaS apps, portals', pt:'E-commerces, dashboards, apps SaaS, portais' },
-    pros:{ en:['Huge ecosystem','Strong job market','Flexible and composable'], pt:['Ecossistema gigante','Mercado de trabalho forte','Flexível e componível'] },
-    cons:{ en:['Not a complete framework','Pattern learning curve','Requires architecture decisions'], pt:['Não é um framework completo','Curva de aprendizado de padrões','Requer decisões de arquitetura'] }
-  },
-  { cat:'fe', icon:'🔴', name:'Angular', sub:'Google · Full Framework',
-    desc:{ en:'Opinionated full framework by Google. Native TypeScript, dependency injection, routing and forms included. Standard in large enterprises.', pt:'Framework completo e opinado da Google. TypeScript nativo, injeção de dependência, roteamento e formulários incluídos. Padrão em grandes empresas.' },
-    tags:['TypeScript','SPA','MVC','Opinionated','Enterprise'],
-    use:{ en:'Corporate systems, ERPs, enterprise portals, large teams', pt:'Sistemas corporativos, ERPs, portais enterprise, equipes grandes' },
-    pros:{ en:['Complete framework out of the box','Native TypeScript','Strong standardization for large teams'], pt:['Framework completo sem configuração extra','TypeScript nativo','Padronização forte em times grandes'] },
-    cons:{ en:['High learning curve','Verbose for simple projects','Larger initial bundle'], pt:['Curva de aprendizado alta','Verboso e complexo para projetos simples','Bundle inicial maior'] }
-  },
-  { cat:'fullstack', icon:'▲', name:'Next.js', sub:'Vercel · React Framework',
-    desc:{ en:'Fullstack framework on top of React. Supports SSR, SSG and API Routes in one project. Nearly automatic deployment on Vercel.', pt:'Framework fullstack sobre React. Suporta SSR, SSG e API Routes no mesmo projeto. Deploy quase automático na Vercel.' },
-    tags:['SSR','SSG','API Routes','SEO','Fullstack'],
-    use:{ en:'SaaS products, e-commerce, content sites, portals', pt:'Produtos SaaS, e-commerces, sites de conteúdo, portais' },
-    pros:{ en:['Better SEO than plain React','Fullstack in one project','Mature ecosystem'], pt:['Melhor SEO que React puro','Fullstack em um projeto','Ecossistema maduro'] },
-    cons:{ en:['Vercel lock-in','Growing complexity','Builds can be slow'], pt:['Lock-in com Vercel','Complexidade crescente','Builds podem ser lentos'] }
-  },
-  { cat:'fullstack', icon:'💚', name:'Vue + Nuxt', sub:'Evan You · Progressive Framework',
-    desc:{ en:'Vue is a progressive framework, more approachable than React. Nuxt is its Next.js equivalent with SSR, SSG and API Routes.', pt:'Vue é um framework progressivo, mais acessível que React. Nuxt é seu equivalente ao Next.js com SSR, SSG e API Routes.' },
-    tags:['Progressive','SSR','SSG','API Routes','Fullstack'],
-    use:{ en:'Mid-size apps, smaller teams, corporate projects', pt:'Aplicações médias, times menores, projetos corporativos' },
-    pros:{ en:['Gentle learning curve','Excellent documentation','Elegant and organized'], pt:['Curva de aprendizado gentil','Documentação excelente','Elegante e organizado'] },
-    cons:{ en:['Smaller ecosystem than React','Fewer job openings','Smaller community'], pt:['Ecossistema menor que React','Menos vagas no mercado','Comunidade menor'] }
-  },
-  { cat:'fullstack', icon:'🔥', name:'SvelteKit', sub:'Rich Harris · Svelte Framework',
-    desc:{ en:'Compiles to plain JS without Virtual DOM. Native fullstack framework with SSR, SSG and server routes. Cleaner code, smaller bundles.', pt:'Compila para JS puro sem Virtual DOM. Framework fullstack nativo com SSR, SSG e rotas de servidor. Código mais limpo, bundles menores.' },
-    tags:['Compiled','Zero Runtime','Fullstack','Performance'],
-    use:{ en:'Performance-critical projects, devs who value DX', pt:'Projetos onde performance é crítica, devs que valorizam DX' },
-    pros:{ en:['Superior performance','Cleaner code','Smaller bundle'], pt:['Performance superior','Código mais limpo','Bundle menor'] },
-    cons:{ en:['Small ecosystem','Fewer job openings','Fewer available libraries'], pt:['Ecossistema pequeno','Menos vagas','Menos bibliotecas disponíveis'] }
-  },
-  { cat:'be', icon:'🟢', name:'Node.js', sub:'OpenJS · JavaScript Runtime',
-    desc:{ en:'JavaScript runtime on the server. Foundation for Express, Fastify and NestJS. Ideal when the team already knows JS and needs performant I/O.', pt:'Runtime JavaScript no servidor. Base para Express, Fastify e NestJS. Ideal quando o time já conhece JS e precisa de I/O performático.' },
-    tags:['JavaScript','Event-loop','Async I/O','NPM'],
-    use:{ en:'REST APIs, microservices, real-time (chat, notifications)', pt:'APIs REST, microserviços, real-time (chat, notificações)' },
-    pros:{ en:['Same language as frontend','High I/O performance','Huge NPM ecosystem'], pt:['Mesmo idioma do frontend','Alta performance em I/O','Ecossistema NPM imenso'] },
-    cons:{ en:['Weak on CPU-intensive tasks','Historical callback hell','No native typing'], pt:['Fraco em CPU intensivo','Callback hell histórico','Sem tipagem nativa'] }
-  },
-  { cat:'be', icon:'🐍', name:'Python + FastAPI', sub:'Sebastián Ramírez · Modern API',
-    desc:{ en:'Most modern Python framework for APIs. Pydantic typing, auto-generated docs, performance close to Node.', pt:'FastAPI é o framework Python mais moderno para APIs. Tipagem com Pydantic, docs automáticas, performance próxima ao Node.' },
-    tags:['Async','OpenAPI','Type hints','Pydantic'],
-    use:{ en:'REST APIs, AI/ML backends, data microservices', pt:'APIs REST, backends com IA/ML, microserviços de dados' },
-    pros:{ en:['Excellent Python performance','Auto-generated docs','Native ML integration'], pt:['Performance excelente para Python','Docs geradas automaticamente','Integração nativa com ML'] },
-    cons:{ en:['Slower than Go/Node in pure I/O','GIL limits parallelism','Smaller ecosystem than Django'], pt:['Mais lento que Go/Node em puro I/O','GIL limita paralelismo','Ecossistema menor que Django'] }
-  },
-  { cat:'fullstack', icon:'🐍', name:'Python + Django', sub:'Django Software Foundation',
-    desc:{ en:'Batteries-included web framework. Auto-generated admin, powerful ORM, ideal for products that need to ship fast.', pt:'Framework batteries-included para web. Admin gerado automaticamente, ORM poderoso, ideal para produtos que precisam ir rápido.' },
-    tags:['Batteries-included','ORM','Admin','MVT'],
-    use:{ en:'CMSs, portals, backoffices, CRUD-heavy products', pt:'CMSs, portais, backoffices, produtos com muito CRUD' },
-    pros:{ en:['Fast development','Automatic admin','Security by default'], pt:['Desenvolvimento rápido','Admin automático','Segurança por padrão'] },
-    cons:{ en:['Monolithic by nature','Slower than FastAPI','ORM can be limiting'], pt:['Monolítico por natureza','Mais lento que FastAPI','ORM pode ser limitante'] }
-  },
-  { cat:'be', icon:'🔵', name:'Go (Golang)', sub:'Google · Systems Language',
-    desc:{ en:'Compiled, typed language with native goroutines. C-like performance with high readability. Favorite for microservices.', pt:'Linguagem compilada, tipada e com goroutines nativas. Performance próxima ao C com legibilidade alta. Favorita para microsserviços.' },
-    tags:['Compiled','Concurrency','Microservices','Performance'],
-    use:{ en:'Microservices, CLIs, infrastructure tools, high-load APIs', pt:'Microsserviços, CLIs, ferramentas de infraestrutura, APIs de alta carga' },
-    pros:{ en:['Exceptional performance','Native concurrency','Small portable binaries'], pt:['Performance excepcional','Concorrência nativa','Binários pequenos e portáveis'] },
-    cons:{ en:['Limited generics until recently','Smaller ecosystem','Verbose for simple operations'], pt:['Sem generics robustos até recente','Ecossistema menor','Verboso para operações simples'] }
-  },
-  { cat:'be', icon:'☕', name:'Java + Spring Boot', sub:'VMware · Enterprise Framework',
-    desc:{ en:'Enterprise framework for Java/Kotlin. Standard in banks, fintechs and large corporations. Mature, robust and widely tested.', pt:'Framework enterprise para Java/Kotlin. Padrão em bancos, fintechs e grandes corporações. Maduro, robusto e amplamente testado.' },
-    tags:['Enterprise','JVM','Microservices','Kotlin compatible'],
-    use:{ en:'Banking systems, fintechs, large corporations, legacy systems', pt:'Sistemas bancários, fintechs, grandes corporações, sistemas legados' },
-    pros:{ en:['Maturity and stability','Rich JVM ecosystem','Excellent Kotlin support'], pt:['Maturidade e estabilidade','Ecossistema JVM rico','Suporte excelente a Kotlin'] },
-    cons:{ en:['Verbose','Slow startup','Configuration overhead'], pt:['Verboso','Startup lento','Overhead de configuração'] }
-  },
-  { cat:'mobile', icon:'📱', name:'Swift', sub:'Apple · iOS Native',
-    desc:{ en:"Apple's official language for iOS, macOS, watchOS. Native performance, full access to system APIs.", pt:'Linguagem oficial da Apple para iOS, macOS, watchOS. Performance nativa, acesso total às APIs do sistema.' },
-    tags:['iOS','macOS','SwiftUI','Native'],
-    use:{ en:'iOS/macOS apps requiring maximum performance and hardware access', pt:'Apps iOS/macOS que precisam de performance máxima e acesso a hardware' },
-    pros:{ en:['Native performance','Full Apple ecosystem access','Modern SwiftUI'], pt:['Performance nativa','Acesso total ao ecossistema Apple','SwiftUI moderno'] },
-    cons:{ en:['Apple ecosystem only','Learning curve','Requires Mac to develop'], pt:['Apenas ecossistema Apple','Curva de aprendizado','Necessita Mac para desenvolver'] }
-  },
-  { cat:'mobile', icon:'🤖', name:'Kotlin', sub:'JetBrains · Android Native',
-    desc:{ en:'Official Android language. Modern, concise and interoperable with Java. Jetpack Compose modernized UI development.', pt:'Linguagem oficial do Android. Moderna, concisa e interoperável com Java. Jetpack Compose modernizou o desenvolvimento de UI.' },
-    tags:['Android','Jetpack Compose','Coroutines','Native'],
-    use:{ en:'Android apps requiring full hardware and system API access', pt:'Apps Android que precisam de acesso total ao hardware e APIs do sistema' },
-    pros:{ en:['Native Android performance','Excellent Jetpack Compose','Java interop'], pt:['Performance nativa Android','Jetpack Compose excelente','Interop com Java'] },
-    cons:{ en:['Android only','Device fragmentation','Long build times'], pt:['Apenas Android','Fragmentação de dispositivos','Build times longos'] }
-  },
-  { cat:'mobile', icon:'💙', name:'Flutter', sub:'Google · Cross-platform',
-    desc:{ en:"Google's framework for cross-platform apps with Dart. Own UI rendered with Skia/Impeller. One codebase for iOS, Android and Web.", pt:'Framework da Google para apps cross-platform com Dart. UI própria renderizada com Skia/Impeller. Um código para iOS, Android e Web.' },
-    tags:['Cross-platform','Dart','iOS','Android','Web'],
-    use:{ en:'Mobile apps needing a single codebase with consistent UI', pt:'Apps mobile que precisam de uma base de código única com UI consistente' },
-    pros:{ en:['One codebase for all platforms','Near-native performance','Consistent UI'], pt:['Uma base para todas as plataformas','Performance próxima ao nativo','UI consistente'] },
-    cons:{ en:['Dart has smaller ecosystem','Larger binaries','Native API access more complex'], pt:['Dart tem ecossistema menor','Binários maiores','Acesso a APIs nativas mais complexo'] }
-  },
-  { cat:'mobile', icon:'⚛️', name:'React Native', sub:'Meta · Cross-platform',
-    desc:{ en:'Uses React to create iOS and Android apps with real native components. Shares logic with web React.', pt:'Usa React para criar apps iOS e Android com componentes nativos reais. Compartilha lógica com web React.' },
-    tags:['Cross-platform','JavaScript','iOS','Android'],
-    use:{ en:'Companies with a React web team wanting to expand to mobile', pt:'Empresas com time web React que querem expandir para mobile' },
-    pros:{ en:['Reuses React knowledge','Fast hot reload','Large community'], pt:['Reutiliza conhecimento React','Hot reload rápido','Comunidade grande'] },
-    cons:{ en:['Lower performance than native','JS/Native bridge can cause issues','Complex debugging'], pt:['Performance inferior ao nativo','Ponte JS/Nativo pode causar problemas','Debugging complexo'] }
-  },
-  { cat:'data', icon:'🐼', name:'Python + Pandas/NumPy', sub:'Data Science',
-    desc:{ en:'Standard data analysis stack. Pandas for tabular manipulation, NumPy for numerical computing. Foundation of the entire data ecosystem.', pt:'Stack padrão para análise de dados. Pandas para manipulação tabular, NumPy para computação numérica. Base de todo o ecossistema de dados.' },
-    tags:['Data Analysis','ETL','NumPy','Jupyter'],
-    use:{ en:'Exploratory analysis, ETL, reports, data preparation for ML', pt:'Análise exploratória, ETL, relatórios, preparação de dados para ML' },
-    pros:{ en:['Unmatched ecosystem','Pandas is powerful for tabular data','Jupyter notebooks'], pt:['Ecossistema incomparável','Pandas é poderoso para dados tabulares','Jupyter notebooks'] },
-    cons:{ en:['Performance at high volumes','GIL limits parallelism','Memory intensive'], pt:['Performance em grandes volumes','GIL limita paralelismo','Memória intensiva'] }
-  },
-  { cat:'data', icon:'🧠', name:'PyTorch / TensorFlow', sub:'Meta / Google · Deep Learning',
-    desc:{ en:'Deep learning frameworks. PyTorch dominates research. TensorFlow strong in production. Foundation for language models and computer vision.', pt:'Frameworks para deep learning. PyTorch domina pesquisa. TensorFlow forte em produção. Base para modelos de linguagem e visão computacional.' },
-    tags:['Deep Learning','GPU','Neural Networks','MLOps'],
-    use:{ en:'Training and serving AI models, LLMs, computer vision, NLP', pt:'Treinar e servir modelos de IA, LLMs, visão computacional, NLP' },
-    pros:{ en:['GPU/TPU support','Rich ML ecosystem','Hugging Face integrated'], pt:['Suporte a GPU/TPU','Ecossistema ML rico','Hugging Face integrado'] },
-    cons:{ en:['Steep learning curve','Expensive infrastructure','Hard to debug'], pt:['Curva de aprendizado steep','Infraestrutura cara','Debug difícil'] }
-  },
-  { cat:'data', icon:'📊', name:'Streamlit / Gradio', sub:'Python · Data Apps',
-    desc:{ en:'Create web interfaces directly in Python. Streamlit for analytical dashboards, Gradio for AI model demos.', pt:'Criam interfaces web diretamente em Python. Streamlit para dashboards analíticos, Gradio para demos de modelos de IA.' },
-    tags:['Dashboards','AI Demo','No Frontend','Prototyping'],
-    use:{ en:'Internal dashboards, ML demos, data tools for non-devs', pt:'Dashboards internos, demos de ML, ferramentas de dados para não-devs' },
-    pros:{ en:['Zero frontend knowledge needed','Fast to prototype','Native ML integration'], pt:['Zero conhecimento de frontend','Rápido para prototipar','Integração nativa com ML'] },
-    cons:{ en:["Doesn't scale for consumer products",'Limited customization','Basic performance'], pt:['Não escala para produtos de consumo','Limitado em customização','Performance básica'] }
-  },
-  { cat:'infra', icon:'🐳', name:'Docker + Kubernetes', sub:'Containerization & Orchestration',
-    desc:{ en:'Docker packages apps in portable containers. Kubernetes orchestrates containers in production with scaling, self-healing and rollouts.', pt:'Docker empacota aplicações em containers portáveis. Kubernetes orquestra containers em produção com escala, self-healing e rollouts.' },
-    tags:['Containers','Orchestration','DevOps','CI/CD'],
-    use:{ en:'Any production application needing scale and reliability', pt:'Qualquer aplicação em produção que precise de escala e confiabilidade' },
-    pros:{ en:['Consistent environment','Easy horizontal scaling','Industry standard'], pt:['Ambiente consistente','Escala horizontal fácil','Padrão da indústria'] },
-    cons:{ en:['Kubernetes is complex','Overhead for small projects','High learning curve'], pt:['Kubernetes é complexo','Overhead para projetos pequenos','Curva de aprendizado alta'] }
-  },
-  { cat:'infra', icon:'🦀', name:'Rust', sub:'Mozilla · Systems Language',
-    desc:{ en:'Systems language without garbage collector. Memory safety guaranteed by the compiler. Growing in WebAssembly, CLIs and infrastructure.', pt:'Linguagem de sistemas sem garbage collector. Memory safety garantida pelo compilador. Crescendo em WebAssembly, CLIs e infraestrutura.' },
-    tags:['Systems','WebAssembly','Memory Safe','Performance'],
-    use:{ en:'CLI tools, WebAssembly, critical systems, C/C++ replacement', pt:'Ferramentas CLI, WebAssembly, sistemas críticos, substituição de C/C++' },
-    pros:{ en:['Maximum performance','Memory safety without GC','Zero-cost abstractions'], pt:['Performance máxima','Memory safety sem GC','Zero-cost abstractions'] },
-    cons:{ en:['Extremely high learning curve','Hard borrow checker','Slow development initially'], pt:['Curva de aprendizado extremamente alta','Borrow checker difícil','Desenvolvimento lento inicialmente'] }
-  },
-];
-
-function setLang(lang) {
-  currentLang = lang;
-  document.getElementById('btn-pt').classList.toggle('active', lang === 'pt');
-  document.getElementById('btn-en').classList.toggle('active', lang === 'en');
-  const t = i18n[lang];
-  document.getElementById('header-tag').textContent = t.headerTag;
-  document.getElementById('subtitle').textContent = t.subtitle;
-  document.getElementById('python-note').textContent = t.pythonNote;
-  document.getElementById('leg-all').textContent = t.legAll;
-  document.getElementById('leg-data').textContent = t.legData;
-  document.getElementById('footer-by').textContent = t.footerBy;
-  document.getElementById('footer-ref').textContent = t.footerRef;
-  document.getElementById('footer-comment').textContent = t.footerComment;
-  document.getElementById('comment-input').placeholder = t.commentPlaceholder;
-  document.getElementById('comment-name').placeholder = t.namePlaceholder;
-  document.getElementById('submit-btn').textContent = t.sendBtn;
-  render(currentFilter);
-}
-
-function render(f) {
-  if (f !== undefined) currentFilter = f;
-  const lang = currentLang;
-  const t = i18n[lang];
-  const grid = document.getElementById('grid');
-  grid.innerHTML = '';
-  stacks.forEach(s => {
-    const show = currentFilter === 'all' || s.cat === currentFilter;
-    const card = document.createElement('div');
-    card.className = `card ${s.cat} ${show ? '' : 'hidden'}`;
-    card.innerHTML = `
-      <div class="card-header">
-        <span class="card-icon">${s.icon}</span>
-        <span class="card-category">${catLabels[lang][s.cat]}</span>
-      </div>
-      <div class="card-name">${s.name}</div>
-      <div class="card-subtitle">${s.sub}</div>
-      <div class="card-desc">${s.desc[lang]}</div>
-      <div style="font-size:10px;color:var(--muted);margin-bottom:8px;letter-spacing:1px;">${t.indicatedFor}</div>
-      <div class="card-desc" style="margin-bottom:16px;">${s.use[lang]}</div>
-      <div class="tags">${s.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}</div>
-      <div class="pros-cons">
-        <div class="pros">
-          <div class="pros-cons-title pro-title">${t.advantages}</div>
-          <ul>${s.pros[lang].map(p => `<li>${p}</li>`).join('')}</ul>
-        </div>
-        <div class="cons">
-          <div class="pros-cons-title con-title">${t.disadvantages}</div>
-          <ul>${s.cons[lang].map(c => `<li>${c}</li>`).join('')}</ul>
-        </div>
-      </div>
-    `;
-    grid.appendChild(card);
-  });
-}
-
-function filter(cat) {
-  document.querySelectorAll('.legend-item').forEach(el => el.classList.remove('active'));
-  event.currentTarget.classList.add('active');
-  render(cat);
-}
-
 const comments = [];
 function submitComment() {
   const text = document.getElementById('comment-input').value.trim();
-  const name = document.getElementById('comment-name').value.trim() || i18n[currentLang].anonymous;
+  const name = document.getElementById('comment-name').value.trim() || 'Anônimo';
   if (!text) return;
-  comments.unshift({ name, text, date: new Date().toLocaleDateString(currentLang === 'pt' ? 'pt-BR' : 'en-US') });
+  comments.unshift({ name, text, date: new Date().toLocaleDateString('pt-BR') });
   document.getElementById('comment-input').value = '';
   document.getElementById('comment-name').value = '';
   renderComments();
@@ -370,4 +519,4 @@ function renderComments() {
   list.innerHTML = comments.map(c => `
     <div style="background:#111118;border:1px solid #1e1e2e;border-radius:6px;padding:14px;">
       <div style="display:flex;justify-content:space-between;margin-bottom:6px;">
-        <span style="font-family:'Syne',sans-serif;font-size:12px;font-weight:600;color:#e
+        <span style="font-family:'Syne',sans-serif;font-size:12
