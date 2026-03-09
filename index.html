@@ -259,10 +259,12 @@
   @media (max-width: 768px) {
     header { padding: 24px 20px 0; }
     .legend { padding: 0 20px 24px; gap: 8px; flex-wrap: wrap; }
-    .grid { padding: 0 20px 80px; }
+    .grid { padding: 0 20px 100px; }
     .pros-cons { grid-template-columns: 1fr; }
     .card { padding: 20px; }
-    footer { padding: 40px 20px; grid-template-columns: 1fr; gap: 32px; }
+    .site-footer { padding: 40px 20px; display: flex; flex-direction: column; gap: 32px; }
+    .footer-contact { width: 100%; }
+    .footer-form { width: 100%; }
     .lang-toggle { margin-top: 0; }
     h1 { font-size: clamp(22px, 7vw, 38px); word-break: break-word; }
     .header-top { flex-wrap: wrap; gap: 12px; }
@@ -308,6 +310,16 @@
   .overlay-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px; }
   .overlay-title { font-size: 10px; letter-spacing: 3px; color: var(--muted); text-transform: uppercase; }
   .overlay-close { background: none; border: none; color: var(--muted); font-size: 20px; cursor: pointer; line-height: 1; }
+
+  .site-footer {
+    margin: 0;
+    padding: 64px 48px;
+    border-top: 1px solid #1e1e2e;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    background: #0d0d14;
+  }
   .noise {
     position: fixed;
     top: 0; left: 0; right: 0; bottom: 0;
@@ -367,9 +379,9 @@
   <div class="legend-item" onclick="filterMobile('infra')"><span class="legend-dot" style="background:var(--infra)"></span><span id="mob-infra">INFRA & DEVOPS</span></div>
 </div>
 
-<footer style="margin: 0; padding: 64px 48px; border-top: 1px solid #1e1e2e; display: grid; grid-template-columns: 1fr 1fr; gap: 48px; background: #0d0d14;">
+<footer class="site-footer">
 
-  <div>
+  <div class="footer-contact">
     <div style="font-size:10px;letter-spacing:3px;color:#6b6b80;text-transform:uppercase;margin-bottom:16px;"><span id="footer-created">// created by</span></div>
     <div style="font-family:'Syne',sans-serif;font-size:22px;font-weight:700;color:#e8e8f0;margin-bottom:6px;">Marco Perrenoud</div>
     <div style="font-size:12px;color:#6b6b80;margin-bottom:28px;"><span id="footer-ref">Technical reference · 2026</span></div>
@@ -389,7 +401,7 @@
     </div>
   </div>
 
-  <div>
+  <div class="footer-form">
     <div style="font-size:10px;letter-spacing:3px;color:#6b6b80;text-transform:uppercase;margin-bottom:16px;"><span id="footer-comment">// leave a comment</span></div>
     <textarea id="comment-placeholder" placeholder="Suggestions, corrections or questions..." style="width:100%;height:100px;background:#111118;border:1px solid #1e1e2e;border-radius:6px;padding:14px;color:#e8e8f0;font-family:'DM Mono',monospace;font-size:12px;resize:vertical;outline:none;" onfocus="this.style.borderColor='#7c6aff'" onblur="this.style.borderColor='#1e1e2e'"></textarea>
     <div style="display:flex;gap:10px;margin-top:10px;align-items:center;">
