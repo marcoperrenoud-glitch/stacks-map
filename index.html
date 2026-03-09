@@ -294,6 +294,40 @@
 
 <div class="grid" id="grid"></div>
 
+<footer style="margin: 0; padding: 64px 48px; border-top: 1px solid #1e1e2e; display: grid; grid-template-columns: 1fr 1fr; gap: 48px; background: #0d0d14;">
+
+  <div>
+    <div style="font-size:10px;letter-spacing:3px;color:#6b6b80;text-transform:uppercase;margin-bottom:16px;"><span id="footer-created">// created by</span></div>
+    <div style="font-family:'Syne',sans-serif;font-size:22px;font-weight:700;color:#e8e8f0;margin-bottom:6px;">Marco Perrenoud</div>
+    <div style="font-size:12px;color:#6b6b80;margin-bottom:28px;"><span id="footer-ref">Technical reference · 2026</span></div>
+    <div style="display:flex;flex-direction:column;gap:12px;">
+      <a href="#" style="display:flex;align-items:center;gap:10px;text-decoration:none;color:#b0b0c0;font-size:12px;" onmouseover="this.style.color='#7c6aff'" onmouseout="this.style.color='#b0b0c0'">
+        <span style="width:28px;height:28px;border:1px solid #1e1e2e;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:14px;">✉</span>
+        marcoperrenoud(at)gmail.com
+      </a>
+      <a href="https://wa.me/5512982215501" target="_blank" style="display:flex;align-items:center;gap:10px;text-decoration:none;color:#b0b0c0;font-size:12px;" onmouseover="this.style.color='#4ecdc4'" onmouseout="this.style.color='#b0b0c0'">
+        <span style="width:28px;height:28px;border:1px solid #1e1e2e;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:14px;">📱</span>
+        (12) 98221-5501
+      </a>
+      <a href="https://www.linkedin.com/in/marco-moura-b1a3911b/" target="_blank" style="display:flex;align-items:center;gap:10px;text-decoration:none;color:#b0b0c0;font-size:12px;" onmouseover="this.style.color='#4a9eff'" onmouseout="this.style.color='#b0b0c0'">
+        <span style="width:28px;height:28px;border:1px solid #1e1e2e;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:14px;">in</span>
+        linkedin.com/in/marco-moura
+      </a>
+    </div>
+  </div>
+
+  <div>
+    <div style="font-size:10px;letter-spacing:3px;color:#6b6b80;text-transform:uppercase;margin-bottom:16px;"><span id="footer-comment">// leave a comment</span></div>
+    <textarea id="comment-placeholder" placeholder="Suggestions, corrections or questions..." style="width:100%;height:100px;background:#111118;border:1px solid #1e1e2e;border-radius:6px;padding:14px;color:#e8e8f0;font-family:'DM Mono',monospace;font-size:12px;resize:vertical;outline:none;" onfocus="this.style.borderColor='#7c6aff'" onblur="this.style.borderColor='#1e1e2e'"></textarea>
+    <div style="display:flex;gap:10px;margin-top:10px;align-items:center;">
+      <input id="name-placeholder" type="text" placeholder="Your name (optional)" style="flex:1;background:#111118;border:1px solid #1e1e2e;border-radius:6px;padding:10px 14px;color:#e8e8f0;font-family:'DM Mono',monospace;font-size:12px;outline:none;" onfocus="this.style.borderColor='#7c6aff'" onblur="this.style.borderColor='#1e1e2e'">
+      <button onclick="submitComment()" style="background:#7c6aff;border:none;color:#fff;font-family:'Syne',sans-serif;font-size:12px;font-weight:600;padding:10px 20px;border-radius:6px;cursor:pointer;letter-spacing:1px;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'" id="submit-btn">SEND</button>
+    </div>
+    <div id="comment-list" style="margin-top:20px;display:flex;flex-direction:column;gap:10px;"></div>
+  </div>
+
+</footer>
+
 <script>
 const stacks = [
   { cat:'fe', icon:'⚛️', name:'React', sub:'Meta · JavaScript/TypeScript',
@@ -531,41 +565,6 @@ function filter(cat) {
 
 window.addEventListener('DOMContentLoaded', function() { setLang('en'); });
 </script>
-
-<footer style="margin: 0; padding: 64px 48px; border-top: 1px solid #1e1e2e; display: grid; grid-template-columns: 1fr 1fr; gap: 48px; background: #0d0d14;">
-
-  <div>
-    <div style="font-size:10px;letter-spacing:3px;color:#6b6b80;text-transform:uppercase;margin-bottom:16px;"><span id="footer-created">// created by</span></div>
-    <div style="font-family:'Syne',sans-serif;font-size:22px;font-weight:700;color:#e8e8f0;margin-bottom:6px;">Marco Perrenoud</div>
-    <div style="font-size:12px;color:#6b6b80;margin-bottom:28px;"><span id="footer-ref">Technical reference · 2026</span></div>
-    <div style="display:flex;flex-direction:column;gap:12px;">
-      <a href="#" style="display:flex;align-items:center;gap:10px;text-decoration:none;color:#b0b0c0;font-size:12px;" onmouseover="this.style.color='#7c6aff'" onmouseout="this.style.color='#b0b0c0'">
-        <span style="width:28px;height:28px;border:1px solid #1e1e2e;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:14px;">✉</span>
-        marcoperrenoud(at)gmail.com
-      </a>
-      <a href="https://wa.me/5512982215501" target="_blank" style="display:flex;align-items:center;gap:10px;text-decoration:none;color:#b0b0c0;font-size:12px;" onmouseover="this.style.color='#4ecdc4'" onmouseout="this.style.color='#b0b0c0'">
-        <span style="width:28px;height:28px;border:1px solid #1e1e2e;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:14px;">📱</span>
-        (12) 98221-5501
-      </a>
-      <a href="https://www.linkedin.com/in/marco-moura-b1a3911b/" target="_blank" style="display:flex;align-items:center;gap:10px;text-decoration:none;color:#b0b0c0;font-size:12px;" onmouseover="this.style.color='#4a9eff'" onmouseout="this.style.color='#b0b0c0'">
-        <span style="width:28px;height:28px;border:1px solid #1e1e2e;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:14px;">in</span>
-        linkedin.com/in/marco-moura
-      </a>
-    </div>
-  </div>
-
-  <div>
-    <div style="font-size:10px;letter-spacing:3px;color:#6b6b80;text-transform:uppercase;margin-bottom:16px;"><span id="footer-comment">// leave a comment</span></div>
-    <textarea id="comment-placeholder" placeholder="Suggestions, corrections or questions..." style="width:100%;height:100px;background:#111118;border:1px solid #1e1e2e;border-radius:6px;padding:14px;color:#e8e8f0;font-family:'DM Mono',monospace;font-size:12px;resize:vertical;outline:none;" onfocus="this.style.borderColor='#7c6aff'" onblur="this.style.borderColor='#1e1e2e'"></textarea>
-    <div style="display:flex;gap:10px;margin-top:10px;align-items:center;">
-      <input id="name-placeholder" type="text" placeholder="Your name (optional)" style="flex:1;background:#111118;border:1px solid #1e1e2e;border-radius:6px;padding:10px 14px;color:#e8e8f0;font-family:'DM Mono',monospace;font-size:12px;outline:none;" onfocus="this.style.borderColor='#7c6aff'" onblur="this.style.borderColor='#1e1e2e'">
-      <button onclick="submitComment()" style="background:#7c6aff;border:none;color:#fff;font-family:'Syne',sans-serif;font-size:12px;font-weight:600;padding:10px 20px;border-radius:6px;cursor:pointer;letter-spacing:1px;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'" id="submit-btn">SEND</button>
-    </div>
-    <div id="comment-list" style="margin-top:20px;display:flex;flex-direction:column;gap:10px;"></div>
-  </div>
-
-</footer>
-
 <script>
 const comments = [];
 function submitComment() {
