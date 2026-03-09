@@ -277,16 +277,16 @@
     </div>
   </div>
   <p class="subtitle" id="subtitle">Linguagens, frameworks e ecossistemas — para que servem, vantagens e desvantagens</p>
-  <p style="font-size:11px;color:var(--muted);margin-bottom:8px;max-width:640px;line-height:1.7;" id="python-note">⚠ Python is a general-purpose language, not a framework. Its classification depends on what's built on top of it: Django is fullstack, FastAPI is pure backend, Streamlit and Gradio are data tools.</p>
+  <p style="font-size:11px;color:var(--muted);margin-bottom:8px;max-width:640px;line-height:1.7;" id="python-note">⚠ Python é uma linguagem de propósito geral, não um framework. Sua classificação depende do que está sendo usado sobre ele: Django é fullstack, FastAPI é backend puro, Streamlit e Gradio são ferramentas de dados.</p>
 </header>
 
 <div class="legend">
-  <div class="legend-item active" onclick="filter('all')"><span class="legend-dot" style="background:#7c6aff"></span><span id="leg-all">ALL</span></div>
+  <div class="legend-item active" onclick="filter('all')"><span class="legend-dot" style="background:#7c6aff"></span><span id="leg-all">TODAS</span></div>
   <div class="legend-item" onclick="filter('fe')"><span class="legend-dot" style="background:var(--fe)"></span><span id="leg-fe">FRONTEND</span></div>
   <div class="legend-item" onclick="filter('be')"><span class="legend-dot" style="background:var(--be)"></span><span id="leg-be">BACKEND</span></div>
   <div class="legend-item" onclick="filter('fullstack')"><span class="legend-dot" style="background:var(--fullstack)"></span><span id="leg-fullstack">FULLSTACK</span></div>
   <div class="legend-item" onclick="filter('mobile')"><span class="legend-dot" style="background:var(--mobile)"></span><span id="leg-mobile">MOBILE</span></div>
-  <div class="legend-item" onclick="filter('data')"><span class="legend-dot" style="background:var(--data)"></span><span id="leg-data">DATA & AI</span></div>
+  <div class="legend-item" onclick="filter('data')"><span class="legend-dot" style="background:var(--data)"></span><span id="leg-data">DADOS & IA</span></div>
   <div class="legend-item" onclick="filter('infra')"><span class="legend-dot" style="background:var(--infra)"></span><span id="leg-infra">INFRA & DEVOPS</span></div>
 </div>
 
@@ -432,7 +432,7 @@ const i18n = {
     pythonNote: "⚠ Python is a general-purpose language, not a framework. Its classification depends on what's built on top of it: Django is fullstack, FastAPI is pure backend, Streamlit and Gradio are data tools.",
     legAll: 'ALL', legFe: 'FRONTEND', legBe: 'BACKEND', legFullstack: 'FULLSTACK', legMobile: 'MOBILE', legData: 'DATA & AI', legInfra: 'INFRA & DEVOPS',
     indicatedFor: 'BEST FOR', advantages: 'ADVANTAGES', disadvantages: 'DISADVANTAGES',
-    footerCreated: '// created by', footerRef: 'Technical reference · 2026', footerComment: '// leave a comment', commentPlaceholder: 'Suggestions, corrections or questions...', namePlaceholder: 'Your name (optional)', submitBtn: 'SEND',
+    footerCreated: '// created by', footerRef: 'Technical reference · 2026', footerComment: '// leave a comment', commentPlaceholder: 'Suggestions, corrections or questions...', namePlaceholder: 'Your name (optional)', submitBtn: 'SEND', anonimo: 'Anonymous',
   },
   pt: {
     headerTag: '// referência técnica 2026',
@@ -440,7 +440,7 @@ const i18n = {
     pythonNote: '⚠ Python é uma linguagem de propósito geral, não um framework. Sua classificação depende do que está sendo usado sobre ele: Django é fullstack, FastAPI é backend puro, Streamlit e Gradio são ferramentas de dados.',
     legAll: 'TODAS', legFe: 'FRONTEND', legBe: 'BACKEND', legFullstack: 'FULLSTACK', legMobile: 'MOBILE', legData: 'DADOS & IA', legInfra: 'INFRA & DEVOPS',
     indicatedFor: 'INDICADO PARA', advantages: 'VANTAGENS', disadvantages: 'DESVANTAGENS',
-    footerCreated: '// criado por', footerRef: 'Referência técnica · 2026', footerComment: '// deixe um comentário', commentPlaceholder: 'Sugestões, correções ou dúvidas...', namePlaceholder: 'Seu nome (opcional)', submitBtn: 'ENVIAR',
+    footerCreated: '// criado por', footerRef: 'Referência técnica · 2026', footerComment: '// deixe um comentário', commentPlaceholder: 'Sugestões, correções ou dúvidas...', namePlaceholder: 'Seu nome (opcional)', submitBtn: 'ENVIAR', anonimo: 'Anônimo',
   }
 };
 
@@ -523,11 +523,11 @@ render('all');
 <footer style="margin: 0; padding: 64px 48px; border-top: 1px solid #1e1e2e; display: grid; grid-template-columns: 1fr 1fr; gap: 48px; background: #0d0d14;">
 
   <div>
-    <div style="font-size:10px;letter-spacing:3px;color:#6b6b80;text-transform:uppercase;margin-bottom:16px;"><span id="footer-created">// created by</span></div>
+    <div style="font-size:10px;letter-spacing:3px;color:#6b6b80;text-transform:uppercase;margin-bottom:16px;"><span id="footer-created">// criado por</span></div>
     <div style="font-family:'Syne',sans-serif;font-size:22px;font-weight:700;color:#e8e8f0;margin-bottom:6px;">Marco Perrenoud</div>
-    <div style="font-size:12px;color:#6b6b80;margin-bottom:28px;"><span id="footer-ref">Technical reference · 2026</span></div>
+    <div style="font-size:12px;color:#6b6b80;margin-bottom:28px;"><span id="footer-ref">Referência técnica · 2026</span></div>
     <div style="display:flex;flex-direction:column;gap:12px;">
-      <a href="mailto:marcoperrenoud.at.gmail.com" style="display:flex;align-items:center;gap:10px;text-decoration:none;color:#b0b0c0;font-size:12px;" onmouseover="this.style.color='#7c6aff'" onmouseout="this.style.color='#b0b0c0'">
+      <a href="#" style="display:flex;align-items:center;gap:10px;text-decoration:none;color:#b0b0c0;font-size:12px;" onmouseover="this.style.color='#7c6aff'" onmouseout="this.style.color='#b0b0c0'">
         <span style="width:28px;height:28px;border:1px solid #1e1e2e;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:14px;">✉</span>
         marcoperrenoud(at)gmail.com
       </a>
@@ -543,11 +543,11 @@ render('all');
   </div>
 
   <div>
-    <div style="font-size:10px;letter-spacing:3px;color:#6b6b80;text-transform:uppercase;margin-bottom:16px;"><span id="footer-comment">// leave a comment</span></div>
-    <textarea id="comment-input" id="comment-placeholder" placeholder="Suggestions, corrections or questions..." style="width:100%;height:100px;background:#111118;border:1px solid #1e1e2e;border-radius:6px;padding:14px;color:#e8e8f0;font-family:'DM Mono',monospace;font-size:12px;resize:vertical;outline:none;" onfocus="this.style.borderColor='#7c6aff'" onblur="this.style.borderColor='#1e1e2e'"></textarea>
+    <div style="font-size:10px;letter-spacing:3px;color:#6b6b80;text-transform:uppercase;margin-bottom:16px;"><span id="footer-comment">// deixe um comentário</span></div>
+    <textarea id="comment-placeholder" placeholder="Sugestões, correções ou dúvidas..." style="width:100%;height:100px;background:#111118;border:1px solid #1e1e2e;border-radius:6px;padding:14px;color:#e8e8f0;font-family:'DM Mono',monospace;font-size:12px;resize:vertical;outline:none;" onfocus="this.style.borderColor='#7c6aff'" onblur="this.style.borderColor='#1e1e2e'"></textarea>
     <div style="display:flex;gap:10px;margin-top:10px;align-items:center;">
-      <input id="comment-name" type="text" id="name-placeholder" placeholder="Your name (optional)" style="flex:1;background:#111118;border:1px solid #1e1e2e;border-radius:6px;padding:10px 14px;color:#e8e8f0;font-family:'DM Mono',monospace;font-size:12px;outline:none;" onfocus="this.style.borderColor='#7c6aff'" onblur="this.style.borderColor='#1e1e2e'">
-      <button onclick="submitComment()" style="background:#7c6aff;border:none;color:#fff;font-family:'Syne',sans-serif;font-size:12px;font-weight:600;padding:10px 20px;border-radius:6px;cursor:pointer;letter-spacing:1px;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'"id="submit-btn">SEND</button>
+      <input id="name-placeholder" type="text" placeholder="Seu nome (opcional)" style="flex:1;background:#111118;border:1px solid #1e1e2e;border-radius:6px;padding:10px 14px;color:#e8e8f0;font-family:'DM Mono',monospace;font-size:12px;outline:none;" onfocus="this.style.borderColor='#7c6aff'" onblur="this.style.borderColor='#1e1e2e'">
+      <button onclick="submitComment()" style="background:#7c6aff;border:none;color:#fff;font-family:'Syne',sans-serif;font-size:12px;font-weight:600;padding:10px 20px;border-radius:6px;cursor:pointer;letter-spacing:1px;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'" id="submit-btn">ENVIAR</button>
     </div>
     <div id="comment-list" style="margin-top:20px;display:flex;flex-direction:column;gap:10px;"></div>
   </div>
@@ -557,12 +557,12 @@ render('all');
 <script>
 const comments = [];
 function submitComment() {
-  const text = document.getElementById('comment-input').value.trim();
-  const name = document.getElementById('comment-name').value.trim() || 'Anônimo';
+  const text = document.getElementById('comment-placeholder').value.trim();
+  const name = document.getElementById('name-placeholder').value.trim() || i18n[currentLang].anonimo;
   if (!text) return;
   comments.unshift({ name, text, date: new Date().toLocaleDateString('pt-BR') });
-  document.getElementById('comment-input').value = '';
-  document.getElementById('comment-name').value = '';
+  document.getElementById('comment-placeholder').value = '';
+  document.getElementById('name-placeholder').value = '';
   renderComments();
 }
 function renderComments() {
